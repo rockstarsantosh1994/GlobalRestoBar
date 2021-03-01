@@ -66,7 +66,8 @@
             android:hint="Eg: 127.0.0.1"
             android:imeOptions="actionDone"
             android:inputType="number"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:maxLength="15"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_validateIP"
