@@ -9,23 +9,21 @@ import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.soulsoft.daycare.services.MyClinic;
+import com.soulsoft.globalrestobar.services.GlobalRestoBar;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import io.paperdb.Paper;
-
 public abstract class BaseFragment extends Fragment {
     public Context mContext;
     public Unbinder unbinder;
-    public MyClinic myClinic;
+    public GlobalRestoBar globalRestoBar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        myClinic = (MyClinic) getActivity().getApplication();
+        globalRestoBar = (GlobalRestoBar) getActivity().getApplication();
         mContext = getActivity();
-        Paper.init(getContext());
+        //Paper.init(getContext());
     }
 
     @Override

@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Global Resto Bar</string>
+    <string name="todo">TODO</string>
+    <string name="ipaddress">IPAdress</string>
+    <string name="validate_ip">Validate IP</string>
+    <string name="validate_ip_to_continue">Validate IP to continue</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="waitername">Waiter Name</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="password">password</string>
+    <string name="login">Login</string>
+    <string name="login_date">Login Date</string>
 </resources>

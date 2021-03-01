@@ -30,7 +30,7 @@ public class SplashActivity extends BaseActivity {
             /* Create an Intent that will start the Menu-Activity. */
             if (CommonMethods.getPrefrence(mContext, AllKeys.USER_ID).equals(AllKeys.DNF)) {
                 // check if permissions are given
-                Intent intent = new Intent(mContext, LoginActivity.class);
+                Intent intent = new Intent(mContext, IPAddressActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
