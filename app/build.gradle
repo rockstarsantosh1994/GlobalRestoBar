@@ -66,4 +66,11 @@ dependencies {
 
     // Lottie Animation Library
     implementation "com.airbnb.android:lottie:3.6.0"
+
+    //Bottom Navigation Library..
+    implementation 'com.github.irfaan008:IRBottomNavigationView:1.0.1'
+
+    //Circle image view..
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
