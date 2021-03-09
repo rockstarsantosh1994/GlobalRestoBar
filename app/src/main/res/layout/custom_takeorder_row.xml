@@ -28,8 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:maxLines="1"
-                    android:text="Code"/>
+                    android:maxLines="1"/>
 
                <!-- <View
                     android:layout_width="0.6dp"
@@ -38,13 +37,14 @@
 -->
                 <TextView
                     android:id="@+id/tv_menu"
-                    android:layout_width="@dimen/_100sdp"
+                    android:layout_width="@dimen/_30sdp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_3sdp"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:maxLines="1"/>
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
 <!--
 
                 <View
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_3sdp"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:maxLines="1"/>
 
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin5"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:maxLines="1" />-->
 
                <!-- <View
@@ -88,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_weight="1"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textStyle="bold"
                     android:maxLines="1"/>
 

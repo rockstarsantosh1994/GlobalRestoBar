@@ -14,28 +14,27 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.soulsoft.globalrestobar.R;
-import com.soulsoft.globalrestobar.model.TakeMenuOrder;
+import com.soulsoft.globalrestobar.model.existingkot.ExistingKotBO;
 
 import java.util.ArrayList;
 
-public class TakeOrderAdapter extends RecyclerView.Adapter<TakeOrderAdapter.TakeOrderViewHolder> {
+public class ExistingOrderAdapter extends RecyclerView.Adapter<ExistingOrderAdapter.TakeOrderViewHolder> {
 
     Context context;
-    ArrayList<TakeMenuOrder> takeMenuOrderArrayList;
+    ArrayList<ExistingKotBO> existingKotBOArrayList;
     float total,sum=0.0f;
     private static final String TAG="TakeOrderAdapter";
     private TakeOrderListener takeOrderListener;
     private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
 
-    /*public TakeOrderAdapter(Context baseContext, ArrayList<TakeMenuOrder> takeOrderArrayList) {
+    /*public TakeOrderAdapter(Context baseContext, ArrayList<ExistingKotBO> takeOrderArrayList) {
         this.context = baseContext;
-        this.takeMenuOrderArrayList = takeOrderArrayList;
+        this.ExistingKotBOArrayList = takeOrderArrayList;
     }*/
 
-    public TakeOrderAdapter(Context context, ArrayList<TakeMenuOrder> takeMenuOrderArrayList, TakeOrderListener takeOrderListener) {
+    public ExistingOrderAdapter(Context context, ArrayList<ExistingKotBO> ExistingKotBOArrayList) {
         this.context = context;
-        this.takeMenuOrderArrayList = takeMenuOrderArrayList;
-        this.takeOrderListener = takeOrderListener;
+        this.existingKotBOArrayList = ExistingKotBOArrayList;
     }
 
     @NonNull
@@ -48,46 +47,20 @@ public class TakeOrderAdapter extends RecyclerView.Adapter<TakeOrderAdapter.Take
 
     @Override
     public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, final int position) {
-        holder.tvCode.setText(takeMenuOrderArrayList.get(position).getGoodsCode());
-        holder.tvMenu.setText(takeMenuOrderArrayList.get(position).getGoodsName());
-        holder.tvQuantity.setText("QTY: "+takeMenuOrderArrayList.get(position).getQuantity());
-        //holder.tvServesIn.setText(takeMenuOrderArrayList.get(position).getUnitname());
-        holder.tvAmount.setText("AMT "+takeMenuOrderArrayList.get(position).getTotal());
+        holder.ivDeleteMenu.setVisibility(View.GONE);
+        //holder.tvCode.setText(existingKotBOArrayList.get(position).getGoodsCode());
+        holder.tvMenu.setText(existingKotBOArrayList.get(position).getMENUNAME());
+        holder.tvQuantity.setText("QTY: "+existingKotBOArrayList.get(position).getQTY());
+        //holder.tvServesIn.setText(ExistingKotBOArrayList.get(position).getUnitname());
+        holder.tvAmount.setText("AMT: "+existingKotBOArrayList.get(position).getAMOUNT());
 
         int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
         holder.cardView.setCardBackgroundColor(bgColor);
-
-        for (int i = 0; i < takeMenuOrderArrayList.size(); i++) {
-            Log.e(TAG, "onClick: " + takeMenuOrderArrayList.get(i).getTotal());
-            total = Float.parseFloat((takeMenuOrderArrayList.get(i).getTotal()));
-        }
-        sum += total;
-       // CommonMethods.setPreference(context,AllKeys.SUM1, String.valueOf(sum));
-
-       /* holder.ivDeleteMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CommonMethods.setPreference(context, AllKeys.TOTAL, takeMenuOrderArrayList.get(position).getTotal());
-                takeMenuOrderArrayList.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, takeMenuOrderArrayList.size());
-
-                for (int i = 0; i < takeMenuOrderArrayList.size(); i++) {
-                    Log.e(TAG, "onClick: " + takeMenuOrderArrayList.get(i).getTotal());
-                    total = Float.parseFloat((takeMenuOrderArrayList.get(i).getTotal()));
-                }
-                Log.e(TAG, "onClick: " + total);
-                sum+=total;
-                //CommonMethods.setPreference(context,AllKeys.SUM1,String.valueOf(sum));
-                Toast.makeText(context, "When delete sum"+total, Toast.LENGTH_SHORT).show();
-
-            }
-        });*/
     }
 
     @Override
     public int getItemCount() {
-        return takeMenuOrderArrayList.size();
+        return existingKotBOArrayList.size();
     }
 
     public class TakeOrderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

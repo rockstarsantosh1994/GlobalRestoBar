@@ -1,6 +1,7 @@
 package com.soulsoft.globalrestobar.fragment;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,12 +20,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.textfield.TextInputEditText;
@@ -31,11 +35,13 @@ import com.google.gson.Gson;
 import com.shreyaspatil.MaterialDialog.MaterialDialog;
 import com.soulsoft.globalrestobar.BaseFragment;
 import com.soulsoft.globalrestobar.R;
+import com.soulsoft.globalrestobar.adapter.ExistingOrderAdapter;
 import com.soulsoft.globalrestobar.adapter.GeTableAdapter1;
 import com.soulsoft.globalrestobar.adapter.GetMenuAdapter;
 import com.soulsoft.globalrestobar.adapter.ServesInSpinnerAdapter;
 import com.soulsoft.globalrestobar.adapter.TakeOrderAdapter;
 import com.soulsoft.globalrestobar.model.TakeMenuOrder;
+import com.soulsoft.globalrestobar.model.existingkot.ExistingDetailsResponse;
 import com.soulsoft.globalrestobar.model.itemunit.ItemUnitResponse;
 import com.soulsoft.globalrestobar.model.menucard.MenuDataBO;
 import com.soulsoft.globalrestobar.model.table.GetTableDataBO;
@@ -77,6 +83,10 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
     EditText etSpecialRequest;
     @BindView(R.id.rv_menu)
     RecyclerView rvMenu;
+    @BindView(R.id.rv_existingorder)
+    RecyclerView rvExistingOrder;
+    @BindView(R.id.ll_existingorder)
+    LinearLayout llExistingOrder;
 
     private final ArrayList<MenuDataBO> menuDataBOArrayList = new ArrayList<>();
     private final ArrayList<GetTableDataBO> getTableDataBOArrayList = new ArrayList<>();
@@ -89,6 +99,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
     private float sum = 0.0f, total;
     private final ArrayList<TakeMenuOrder> takeOrderArrayList=new ArrayList<>();
     private TakeMenuOrder takeMenuOrder;
+    private TakeOrderAdapter takeOrderAdapter;
 
     public TakeOrderFragment( ) {
         // Required empty public constructor
@@ -111,11 +122,32 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initViews( ) {
+        //setLayoutManager for Menu recyler..
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(mContext){
+            @Override
+            public boolean canScrollVertically( ) {
+                return false;
+            }
+        };
+
+        rvMenu.setLayoutManager(linearLayoutManager);
+
+        //setLayoutManager for Existing order..
+        LinearLayoutManager linearLayoutManager1=new LinearLayoutManager(mContext){
+            @Override
+            public boolean canScrollVertically( ) {
+                return false;
+            }
+        };
+        rvExistingOrder.setLayoutManager(linearLayoutManager1);
+
+        //Click listeners..
         btnClear.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
         btnExit.setOnClickListener(this);
         btnTakeOrder.setOnClickListener(this);
 
+        //Back pressed event for fragment..
         OnBackPressedCallback callback = new OnBackPressedCallback(true /* enabled by default */) {
             @Override
             public void handleOnBackPressed( ) {
@@ -175,7 +207,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
 
         takeOrderArrayList.add(takeMenuOrder);
 
-        TakeOrderAdapter takeOrderAdapter = new TakeOrderAdapter(getActivity().getBaseContext(), takeOrderArrayList, this);
+        takeOrderAdapter = new TakeOrderAdapter(getActivity().getBaseContext(), takeOrderArrayList, this);
         takeOrderAdapter.notifyDataSetChanged();
         rvMenu.setAdapter(takeOrderAdapter);
         // llSpecialRequest.setVisibility(View.GONE);
@@ -222,6 +254,11 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             getTableDataBO = (GetTableDataBO) adapterView.getItemAtPosition(i);
             Log.e(TAG, "onItemClick: getTableData " + getTableDataBO);
             stSectionId = getTableDataBO.getSID();
+
+            //load existing order details....
+            if (!actTableNo.getText().toString().isEmpty()) {
+                loadExistingOrderData(getTableDataBO.getTABLENO());
+            }
         });
     }
 
@@ -328,6 +365,44 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
         mDialog.show();
     }
 
+    //load existindetails order
+    public void loadExistingOrderData(String tableNo) {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Please wait...");
+        progressDialog.setTitle("Fetching data");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, CommonMethods.getPrefrence(mContext,AllKeys.BASE_URL).concat(ConfigUrl.BOOKEDTABLE_KOTDETAILS), response -> {
+            Log.e(TAG, "onResponse: " + response);
+            Gson gson = new Gson();
+
+            ExistingDetailsResponse existingDetailsResponse = gson.fromJson(response, ExistingDetailsResponse.class);
+            progressDialog.dismiss();
+            if(existingDetailsResponse.getTable().size()>0){
+                llExistingOrder.setVisibility(View.VISIBLE);
+                ExistingOrderAdapter orderDetailsAdapter = new ExistingOrderAdapter(getContext(), existingDetailsResponse.getTable());
+                rvExistingOrder.setAdapter(orderDetailsAdapter);
+            }else{
+                llExistingOrder.setVisibility(View.GONE);
+            }
+        }, error -> {
+            progressDialog.dismiss();
+            Log.e(TAG, "onErrorResponse: " + error);
+        }) {
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+
+                params.put("TableNo",tableNo);
+                Log.e(TAG, "getParams: " + params);
+                return params;
+            }
+        };
+        RequestQueue mQueue = Volley.newRequestQueue(getContext());
+        mQueue.add(stringRequest);
+    }
+
+
     //validations....
     public boolean isValidatedTable( ) {
         if (actTableNo.getText().toString().isEmpty()) {
@@ -368,8 +443,24 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
         etSpecialRequest.getText().clear();
     }
 
+    //On Delete button operations...
     @Override
     public void onTakeOrderClick(int position) {
-
+        takeOrderArrayList.remove(position);
+        takeOrderAdapter.notifyItemRemoved(position);
+        takeOrderAdapter.notifyItemRangeChanged(position, takeOrderArrayList.size());
+        /*Log.e("delete", "Array List size when deleteing data" + takeOrderArrayList.size());
+        Log.e("delete", "Array List when deleteing data " + takeOrderArrayList);*/
+        Float total = 0.0f;
+        for (int i = 0; i < takeOrderArrayList.size(); i++) {
+            Log.e("delete", "onClick: " + takeOrderArrayList.get(i).getTotal());
+            total += Float.parseFloat((takeOrderArrayList.get(i).getTotal()));
+        }
+        sum = total;
+        if(takeOrderArrayList.size()==0){
+            btnTakeOrder.setText("Take Order");
+        }else {
+            btnTakeOrder.setText("Total: "+sum);
+        }
     }
 }
