@@ -155,4 +155,27 @@ public class GetTableDataBO {
     public void setPARCELCHARGE(String PARCELCHARGE) {
         this.PARCELCHARGE = PARCELCHARGE;
     }
+
+    @Override
+    public String toString( ) {
+        return "GetTableDataBO{" +
+                "TID='" + TID + '\'' +
+                ", TABLENO='" + TABLENO + '\'' +
+                ", SID='" + SID + '\'' +
+                ", ORDERTYPE='" + ORDERTYPE + '\'' +
+                ", SECTIONNAME='" + SECTIONNAME + '\'' +
+                ", FOODCGST='" + FOODCGST + '\'' +
+                ", FOODSGST='" + FOODSGST + '\'' +
+                ", FOODSERVICETAX='" + FOODSERVICETAX + '\'' +
+                ", FOODSECTIONCHARGE='" + FOODSECTIONCHARGE + '\'' +
+                ", FOODOTHERCHARGE='" + FOODOTHERCHARGE + '\'' +
+                ", BARVAT='" + BARVAT + '\'' +
+                ", BARSECTIONCHARGE='" + BARSECTIONCHARGE + '\'' +
+                ", BARSERVICETAX='" + BARSERVICETAX + '\'' +
+                ", BAROTHERCHARGE='" + BAROTHERCHARGE + '\'' +
+                ", ISALLOWPARCELCHARGE='" + ISALLOWPARCELCHARGE + '\'' +
+                ", BILLPRINTCOUNT='" + BILLPRINTCOUNT + '\'' +
+                ", PARCELCHARGE='" + PARCELCHARGE + '\'' +
+                '}';
+    }
 }

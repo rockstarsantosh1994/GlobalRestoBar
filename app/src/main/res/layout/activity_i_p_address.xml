@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:completionThreshold="1"
             android:digits="0123456789."
-            android:hint="Eg: 127.0.0.1"
+            android:hint="@string/ex_127_0_0_1"
             android:imeOptions="actionDone"
             android:inputType="number"
             android:maxLines="1"

@@ -13,23 +13,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.soulsoft.globalrestobar.R;
-import com.soulsoft.globalrestobar.model.menucard.MenuDataBO;
+import com.soulsoft.globalrestobar.model.table.GetTableDataBO;
 
 import java.util.ArrayList;
 
-public class GetMenuAdapter extends ArrayAdapter<MenuDataBO> {
+public class GeTableAdapter1 extends ArrayAdapter<GetTableDataBO> {
 
     Context context;
-    private final ArrayList<MenuDataBO> menuDataBOArrayList;
-    private final ArrayList<MenuDataBO> suggestions;
-    private final ArrayList<MenuDataBO> tempItems;
+    private final ArrayList<GetTableDataBO> getTableDataBOArrayList;
+    private final ArrayList<GetTableDataBO> suggestions;
+    private final ArrayList<GetTableDataBO> tempItems;
     private LayoutInflater inflater = null;
 
-    public GetMenuAdapter(@NonNull Context context, @NonNull ArrayList<MenuDataBO> objects) {
+    public GeTableAdapter1(@NonNull Context context, @NonNull ArrayList<GetTableDataBO> objects) {
         super(context, 0,objects);
         this.context=context;
-        this.menuDataBOArrayList =objects;
-        tempItems = new ArrayList<>(menuDataBOArrayList);
+        this.getTableDataBOArrayList =objects;
+        tempItems = new ArrayList<>(getTableDataBOArrayList);
         suggestions=new ArrayList<>();
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -44,17 +44,17 @@ public class GetMenuAdapter extends ArrayAdapter<MenuDataBO> {
     public int getCount() {
         /*return (ownerDataArrayList != null && ownerDataArrayList.size() > 0)
                 ? ownerDataArrayList.size() : 0;*/
-        return menuDataBOArrayList.size();
+        return getTableDataBOArrayList.size();
     }
 
     @Nullable
     @Override
-    public MenuDataBO getItem(int position) {
+    public GetTableDataBO getItem(int position) {
         return super.getItem(position);
     }
 
     @Override
-    public int getPosition(@Nullable MenuDataBO item) {
+    public int getPosition(@Nullable GetTableDataBO item) {
         return super.getPosition(item);
     }
 
@@ -70,7 +70,7 @@ public class GetMenuAdapter extends ArrayAdapter<MenuDataBO> {
 
         TextView textViewName = convertView.findViewById(R.id.autoText);
 
-        MenuDataBO menuDataBO = getItem(position);
+        GetTableDataBO getTableDataBO = getItem(position);
 
         //patientPosition=suggestions.size();
 
@@ -80,8 +80,8 @@ public class GetMenuAdapter extends ArrayAdapter<MenuDataBO> {
             e.printStackTrace();
         }
 */
-        if (menuDataBO != null) {
-            textViewName.setText(menuDataBO.getITEMNAME());
+        if (getTableDataBO != null) {
+            textViewName.setText(getTableDataBO.getTABLENO());
         }
         return convertView;
     }
@@ -89,17 +89,17 @@ public class GetMenuAdapter extends ArrayAdapter<MenuDataBO> {
     private final Filter fruitFilter = new Filter() {
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            MenuDataBO menuDataBO = (MenuDataBO) resultValue;
-            return menuDataBO.getITEMNAME();
+            GetTableDataBO getTableDataBO = (GetTableDataBO) resultValue;
+            return getTableDataBO.getTABLENO();
         }
 
         @Override
         protected FilterResults performFiltering(CharSequence charSequence) {
             if (charSequence != null) {
                 suggestions.clear();
-                for (MenuDataBO menuDataBO: tempItems) {
-                    if (menuDataBO.getITEMNAME().toLowerCase().startsWith(charSequence.toString().toLowerCase())) {
-                        suggestions.add(menuDataBO);
+                for (GetTableDataBO getTableDataBO: tempItems) {
+                    if (getTableDataBO.getTABLENO().toLowerCase().startsWith(charSequence.toString().toLowerCase())) {
+                        suggestions.add(getTableDataBO);
                     }
                 }
                 FilterResults filterResults = new FilterResults();
@@ -114,10 +114,10 @@ public class GetMenuAdapter extends ArrayAdapter<MenuDataBO> {
         @Override
         protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
             try{
-                ArrayList<MenuDataBO> tempValues = (ArrayList<MenuDataBO>) filterResults.values;
+                ArrayList<GetTableDataBO> tempValues = (ArrayList<GetTableDataBO>) filterResults.values;
                 if (filterResults != null && filterResults.count > 0) {
                     clear();
-                    for (MenuDataBO fruitObj : tempValues) {
+                    for (GetTableDataBO fruitObj : tempValues) {
                         add(fruitObj);
                     }
                     notifyDataSetChanged();

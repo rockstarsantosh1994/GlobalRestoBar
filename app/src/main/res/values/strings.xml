@@ -36,4 +36,5 @@
     <string name="add">Add</string>
     <string name="Reset">Reset</string>
     <string name="take_order">Take Order</string>
+    <string name="ex_127_0_0_1">Ex: 127.0.0.1</string>
 </resources>
