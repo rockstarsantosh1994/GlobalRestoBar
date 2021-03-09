@@ -5,7 +5,6 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -19,7 +18,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.soulsoft.globalrestobar.BaseActivity;
 import com.soulsoft.globalrestobar.R;
 import com.soulsoft.globalrestobar.fragment.TakeOrderFragment;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -42,6 +40,7 @@ public class DashBoardActivity extends BaseActivity implements NavigationView.On
     AnimatedBottomBar animatedBottomBar;
 
     public static TextView tvTitle;
+    private static final String TAG = "DashBoardActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,5 +130,4 @@ public class DashBoardActivity extends BaseActivity implements NavigationView.On
             fragmentTransaction.commitAllowingStateLoss();
         }
     }
-
 }

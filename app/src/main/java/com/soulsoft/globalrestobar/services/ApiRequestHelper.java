@@ -10,14 +10,21 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
+import com.soulsoft.globalrestobar.model.getcaptain.GetCaptainResponse;
 import com.soulsoft.globalrestobar.utility.AllKeys;
+import com.soulsoft.globalrestobar.utility.CommonMethods;
 import com.soulsoft.globalrestobar.utility.ConfigUrl;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -33,6 +40,35 @@ public class ApiRequestHelper {
     private GlobalRestoBar application;
     private GlobalRestoBarServices globalRestoBarServices;
     static Gson gson;
+
+    public void getallcaptain(final OnRequestComplete onRequestComplete) {
+        Call<GetCaptainResponse> call = globalRestoBarServices.getAllCaptain();
+        getallcaptain(onRequestComplete, call);
+    }
+
+    private void getallcaptain(final OnRequestComplete onRequestComplete, Call<GetCaptainResponse> call) {
+        call.enqueue(new Callback<GetCaptainResponse>() {
+            @Override
+            public void onResponse(@NotNull Call<GetCaptainResponse> call, @NotNull Response<GetCaptainResponse> response) {
+                if (response.isSuccessful()) {
+                    onRequestComplete.onSuccess(response.body());
+                } else {
+                    try {
+                        onRequestComplete.onFailure(Html.fromHtml(response.errorBody().string()) + "");
+                    } catch (IOException e) {
+                        onRequestComplete.onFailure(AllKeys.UNPROPER_RESPONSE);
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GetCaptainResponse> call, Throwable t) {
+                handle_fail_response(t, onRequestComplete);
+            }
+        });
+    }
+
 
     /*public void login(Map<String, String> params, final OnRequestComplete onRequestComplete) {
         Call<LoginResponse> call = globalRestoBarServices.login(params);
@@ -146,10 +182,18 @@ public class ApiRequestHelper {
 // add logging as last interceptor
         httpClient.interceptors().add(logging);
 
-        Retrofit.Builder builder =
+       /* Retrofit.Builder builder =
                 new Retrofit.Builder()
-                        .baseUrl(ConfigUrl.BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create(gson));
+                        .baseUrl(CommonMethods.getPrefrence(getApplication(),AllKeys.BASE_URL))
+                        .addConverterFactory(GsonConverterFactory.create(gson));*/
+
+        Retrofit.Builder builder=new Retrofit.Builder();
+        if(CommonMethods.getPrefrence(getApplication(),AllKeys.BASE_URL).equalsIgnoreCase(AllKeys.DNF)){
+            builder.baseUrl(ConfigUrl.BASE_URL);
+        }else{
+            builder.baseUrl(CommonMethods.getPrefrence(getApplication(),AllKeys.BASE_URL));
+        }
+        builder.addConverterFactory(GsonConverterFactory.create(gson));
 
         Retrofit retrofit = builder.client(httpClient.build()).build();
         globalRestoBarServices = retrofit.create(GlobalRestoBarServices.class);

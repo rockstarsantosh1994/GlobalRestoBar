@@ -19,7 +19,6 @@ public class SplashActivity extends BaseActivity {
         // FirebaseApp.initializeApp(this);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +27,7 @@ public class SplashActivity extends BaseActivity {
 
         new Handler().postDelayed(() -> {
             /* Create an Intent that will start the Menu-Activity. */
-            if (CommonMethods.getPrefrence(mContext, AllKeys.USER_ID).equals(AllKeys.DNF)) {
+            if (CommonMethods.getPrefrence(mContext, AllKeys.EMPCODE).equals(AllKeys.DNF)) {
                 // check if permissions are given
                 Intent intent = new Intent(mContext, IPAddressActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

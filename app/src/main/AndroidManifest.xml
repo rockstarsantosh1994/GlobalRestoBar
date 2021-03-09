@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.soulsoft.globalrestobar">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:name=".services.GlobalRestoBar"
@@ -19,9 +22,13 @@
         android:theme="@style/Theme.GlobalRestoBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".activity.IPAddressActivity"/>
-        <activity android:name=".activity.DashBoardActivity" />
-        <activity android:name=".activity.LoginActivity" />
+
+        <activity android:name=".activity.IPAddressActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.DashBoardActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +36,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

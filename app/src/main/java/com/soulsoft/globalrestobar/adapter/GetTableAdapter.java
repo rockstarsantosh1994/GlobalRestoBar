@@ -10,31 +10,31 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.soulsoft.globalrestobar.R;
-import com.soulsoft.globalrestobar.model.getcaptain.GetAllCaptainBO;
+import com.soulsoft.globalrestobar.model.table.GetTableDataBO;
 
 import java.util.ArrayList;
 
-public class GetAllCaptainAdapter extends BaseAdapter implements Filterable {
+public class GetTableAdapter extends BaseAdapter implements Filterable {
 
     Context context;
-    ArrayList<GetAllCaptainBO> getAllCaptainBOS;
+    ArrayList<GetTableDataBO> getTableDataArrayList;
 
-    private ArrayList<GetAllCaptainBO> suggestions = new ArrayList<>();
+    private ArrayList<GetTableDataBO> suggestions = new ArrayList<>();
     private Filter filter = new CustomFilter();
 
-    public GetAllCaptainAdapter(Context context, ArrayList<GetAllCaptainBO> getAllCaptainBOS) {
+    public GetTableAdapter(Context context, ArrayList<GetTableDataBO> getTableDataArrayList) {
         this.context = context;
-        this.getAllCaptainBOS = getAllCaptainBOS;
+        this.getTableDataArrayList = getTableDataArrayList;
     }
 
     @Override
     public int getCount() {
-        return getAllCaptainBOS.size();
+        return getTableDataArrayList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return getAllCaptainBOS.get(position).getEMPNAME();
+        return getTableDataArrayList.get(position).getTABLENO();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class GetAllCaptainAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.text1.setText(getAllCaptainBOS.get(position).getEMPNAME());
+        holder.text1.setText(getTableDataArrayList.get(position).getTABLENO());
 
         return convertView;
     }
@@ -74,9 +74,9 @@ public class GetAllCaptainAdapter extends BaseAdapter implements Filterable {
         }
     }
 
-    public void updateData(Context context, ArrayList<GetAllCaptainBO> data) {
+    public void updateData(Context context, ArrayList<GetTableDataBO> data) {
         this.context=context;
-        this.getAllCaptainBOS = data;
+        this.getTableDataArrayList = data;
         notifyDataSetChanged();
     }
 
@@ -90,10 +90,10 @@ public class GetAllCaptainAdapter extends BaseAdapter implements Filterable {
 
             suggestions.clear();
 
-            if (getAllCaptainBOS != null && constraint != null) { // Check if the Original List and Constraint aren't null.
-                for (int i = 0; i < getAllCaptainBOS.size(); i++) {
-                    if (getAllCaptainBOS.get(i).getEMPNAME().toLowerCase().contains(constraint)|| getAllCaptainBOS.get(i).getEMPNAME().toUpperCase().contains(constraint) ) { // Compare item in original list if it contains constraints.
-                        suggestions.add(getAllCaptainBOS.get(i)); // If TRUE add item in Suggestions.
+            if (getTableDataArrayList != null && constraint != null) { // Check if the Original List and Constraint aren't null.
+                for (int i = 0; i < getTableDataArrayList.size(); i++) {
+                    if (getTableDataArrayList.get(i).getTABLENO().toLowerCase().contains(constraint)|| getTableDataArrayList.get(i).getTABLENO().toUpperCase().contains(constraint) ) { // Compare item in original list if it contains constraints.
+                        suggestions.add(getTableDataArrayList.get(i)); // If TRUE add item in Suggestions.
                     }
                 }
             }

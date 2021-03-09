@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class GetCaptainResponse {
 
-    public ArrayList<GetAllCaptain> Table;
+    public ArrayList<GetAllCaptainBO> Table;
 
-    public ArrayList<GetAllCaptain> getTable() {
+    public ArrayList<GetAllCaptainBO> getTable() {
         return Table;
     }
 
-    public void setTable(ArrayList<GetAllCaptain> table) {
+    public void setTable(ArrayList<GetAllCaptainBO> table) {
         Table = table;
     }
 }

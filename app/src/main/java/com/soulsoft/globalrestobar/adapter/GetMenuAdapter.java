@@ -10,31 +10,31 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.soulsoft.globalrestobar.R;
-import com.soulsoft.globalrestobar.model.getcaptain.GetAllCaptainBO;
+import com.soulsoft.globalrestobar.model.menucard.MenuDataBO;
 
 import java.util.ArrayList;
 
-public class GetAllCaptainAdapter extends BaseAdapter implements Filterable {
+public class GetMenuAdapter extends BaseAdapter implements Filterable {
 
     Context context;
-    ArrayList<GetAllCaptainBO> getAllCaptainBOS;
+    ArrayList<MenuDataBO> menuDataBOS;
 
-    private ArrayList<GetAllCaptainBO> suggestions = new ArrayList<>();
+    private ArrayList<MenuDataBO> suggestions = new ArrayList<>();
     private Filter filter = new CustomFilter();
 
-    public GetAllCaptainAdapter(Context context, ArrayList<GetAllCaptainBO> getAllCaptainBOS) {
+    public GetMenuAdapter(Context context, ArrayList<MenuDataBO> menuDataBOS) {
         this.context = context;
-        this.getAllCaptainBOS = getAllCaptainBOS;
+        this.menuDataBOS = menuDataBOS;
     }
 
     @Override
     public int getCount() {
-        return getAllCaptainBOS.size();
+        return menuDataBOS.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return getAllCaptainBOS.get(position).getEMPNAME();
+        return menuDataBOS.get(position).getITEMNAME();
     }
 
     @Override
@@ -56,7 +56,7 @@ public class GetAllCaptainAdapter extends BaseAdapter implements Filterable {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        holder.text1.setText(getAllCaptainBOS.get(position).getEMPNAME());
+        holder.text1.setText(menuDataBOS.get(position).getITEMNAME());
 
         return convertView;
     }
@@ -74,9 +74,9 @@ public class GetAllCaptainAdapter extends BaseAdapter implements Filterable {
         }
     }
 
-    public void updateData(Context context, ArrayList<GetAllCaptainBO> data) {
+    public void updateData(Context context, ArrayList<MenuDataBO> data) {
         this.context=context;
-        this.getAllCaptainBOS = data;
+        this.menuDataBOS = data;
         notifyDataSetChanged();
     }
 
@@ -90,10 +90,10 @@ public class GetAllCaptainAdapter extends BaseAdapter implements Filterable {
 
             suggestions.clear();
 
-            if (getAllCaptainBOS != null && constraint != null) { // Check if the Original List and Constraint aren't null.
-                for (int i = 0; i < getAllCaptainBOS.size(); i++) {
-                    if (getAllCaptainBOS.get(i).getEMPNAME().toLowerCase().contains(constraint)|| getAllCaptainBOS.get(i).getEMPNAME().toUpperCase().contains(constraint) ) { // Compare item in original list if it contains constraints.
-                        suggestions.add(getAllCaptainBOS.get(i)); // If TRUE add item in Suggestions.
+            if (menuDataBOS != null && constraint != null) { // Check if the Original List and Constraint aren't null.
+                for (int i = 0; i < menuDataBOS.size(); i++) {
+                    if (menuDataBOS.get(i).getITEMNAME().toLowerCase().contains(constraint)|| menuDataBOS.get(i).getITEMNAME().toUpperCase().contains(constraint) ) { // Compare item in original list if it contains constraints.
+                        suggestions.add(menuDataBOS.get(i)); // If TRUE add item in Suggestions.
                     }
                 }
             }
