@@ -2,101 +2,101 @@ package com.soulsoft.globalrestobar.model;
 
 public class TakeMenuOrder {
 
-    public String GoodsCode;
-    public String GoodsName;
-    public String ItemType;
-    public String UnitCode;
-    public String Rate;
-    public String SplRequest;
-    public String Quantity;
-    public String Total;
-    public String Unitname;
+    public String IID;
+    public String ITEMNAME;
+    public String ITEMTYPE;
+    public String ITEMNARRATION;
+    public String UID;
+    public String RATE;
+    public String QTY;
+    public String TOTAL;
+    public String UNITNAME;
 
     public TakeMenuOrder(){
 
     }
 
-    public TakeMenuOrder(String goodsCode, String goodsName, String itemType, String unitCode, String rate, String splRequest, String quantity, String total, String unitname) {
-        GoodsCode = goodsCode;
-        GoodsName = goodsName;
-        ItemType = itemType;
-        UnitCode = unitCode;
-        Rate = rate;
-        SplRequest = splRequest;
-        Quantity = quantity;
-        Total = total;
-        Unitname = unitname;
+    public TakeMenuOrder(String IID, String ITEMNAME, String ITEMTYPE, String ITEMNARRATION, String UID, String RATE, String QTY, String TOTAL, String UNITNAME) {
+        this.IID = IID;
+        this.ITEMNAME = ITEMNAME;
+        this.ITEMTYPE = ITEMTYPE;
+        this.ITEMNARRATION = ITEMNARRATION;
+        this.UID = UID;
+        this.RATE = RATE;
+        this.QTY = QTY;
+        this.TOTAL = TOTAL;
+        this.UNITNAME = UNITNAME;
     }
 
-    public String getUnitname() {
-        return Unitname;
+    public String getIID( ) {
+        return IID;
     }
 
-    public void setUnitname(String unitname) {
-        Unitname = unitname;
+    public void setIID(String IID) {
+        this.IID = IID;
     }
 
-    public String getGoodsName() {
-        return GoodsName;
+    public String getITEMNAME( ) {
+        return ITEMNAME;
     }
 
-    public void setGoodsName(String goodsName) {
-        GoodsName = goodsName;
+    public void setITEMNAME(String ITEMNAME) {
+        this.ITEMNAME = ITEMNAME;
     }
 
-    public String getGoodsCode() {
-        return GoodsCode;
+    public String getITEMTYPE( ) {
+        return ITEMTYPE;
     }
 
-    public void setGoodsCode(String goodsCode) {
-        GoodsCode = goodsCode;
+    public void setITEMTYPE(String ITEMTYPE) {
+        this.ITEMTYPE = ITEMTYPE;
     }
 
-    public String getQuantity() {
-        return Quantity;
+    public String getITEMNARRATION( ) {
+        return ITEMNARRATION;
     }
 
-    public void setQuantity(String quantity) {
-        Quantity = quantity;
+    public void setITEMNARRATION(String ITEMNARRATION) {
+        this.ITEMNARRATION = ITEMNARRATION;
     }
 
-    public String getItemType() {
-        return ItemType;
+    public String getUID( ) {
+        return UID;
     }
 
-    public void setItemType(String itemType) {
-        ItemType = itemType;
+    public void setUID(String UID) {
+        this.UID = UID;
     }
 
-    public String getUnitCode() {
-        return UnitCode;
+    public String getRATE( ) {
+        return RATE;
     }
 
-    public void setUnitCode(String unitCode) {
-        UnitCode = unitCode;
+    public void setRATE(String RATE) {
+        this.RATE = RATE;
     }
 
-    public String getRate() {
-        return Rate;
+    public String getQTY( ) {
+        return QTY;
     }
 
-    public void setRate(String rate) {
-        Rate = rate;
+    public void setQTY(String QTY) {
+        this.QTY = QTY;
     }
 
-    public String getSplRequest() {
-        return SplRequest;
+    public String getTOTAL( ) {
+        return TOTAL;
     }
 
-    public void setSplRequest(String splRequest) {
-        SplRequest = splRequest;
+    public void setTOTAL(String TOTAL) {
+        this.TOTAL = TOTAL;
     }
 
-    public String getTotal() {
-        return Total;
+    public String getUNITNAME( ) {
+        return UNITNAME;
     }
 
-    public void setTotal(String total) {
-        Total = total;
+    public void setUNITNAME(String UNITNAME) {
+        this.UNITNAME = UNITNAME;
     }
 }

@@ -20,10 +20,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,6 +43,7 @@ import com.soulsoft.globalrestobar.adapter.GeTableAdapter1;
 import com.soulsoft.globalrestobar.adapter.GetMenuAdapter;
 import com.soulsoft.globalrestobar.adapter.ServesInSpinnerAdapter;
 import com.soulsoft.globalrestobar.adapter.TakeOrderAdapter;
+import com.soulsoft.globalrestobar.model.CommonResponse;
 import com.soulsoft.globalrestobar.model.TakeMenuOrder;
 import com.soulsoft.globalrestobar.model.existingkot.ExistingDetailsResponse;
 import com.soulsoft.globalrestobar.model.itemunit.ItemUnitResponse;
@@ -94,12 +98,13 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
     private GetTableDataBO getTableDataBO = null;
     private static final String TAG = "TakeOrderFragment";
     private ItemUnitResponse itemUnitResponse;
-    private String stServesInId, stSectionId, stGoodsCode, stServesInName, stOrderId, stItemType;
+    private String stServesInId, stSectionId, stGoodsCode, stServesInName, stOrderId="0", stItemType;
     private double stRate;
     private float sum = 0.0f, total;
     private final ArrayList<TakeMenuOrder> takeOrderArrayList=new ArrayList<>();
     private TakeMenuOrder takeMenuOrder;
     private TakeOrderAdapter takeOrderAdapter;
+    private static int MY_SOCKET_TIMEOUT_MS = 20000;
 
     public TakeOrderFragment( ) {
         // Required empty public constructor
@@ -185,8 +190,8 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
                     addFood();
                 }
                 for (int i = 0; i < takeOrderArrayList.size(); i++) {
-                    Log.e(TAG, "onClick: " + takeOrderArrayList.get(i).getTotal());
-                    total = Float.parseFloat((takeOrderArrayList.get(i).getTotal()));
+                    Log.e(TAG, "onClick: " + takeOrderArrayList.get(i).getTOTAL());
+                    total = Float.parseFloat((takeOrderArrayList.get(i).getTOTAL()));
                 }
                 sum += total;
                 btnTakeOrder.setText("Total: "+sum);
@@ -197,13 +202,101 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
                 break;
 
             case R.id.btn_takeorder:
+                //Take order which customer had ordered
+                takeOrder();
                 break;
         }
     }
 
+    //Take order which customer had ordered
+    public void takeOrder() {
+        if (takeOrderArrayList.size() != 0) {
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setMessage("Please wait...");
+            progressDialog.setTitle("Order Generating...");
+            progressDialog.show();
+            progressDialog.setCancelable(false);
+
+            StringRequest stringRequest = new StringRequest(Request.Method.POST, CommonMethods.getPrefrence(mContext,AllKeys.BASE_URL).concat(ConfigUrl.SAVE_KOT), response -> {
+
+                Gson gson = new Gson();
+
+                CommonResponse commonResponse = gson.fromJson(response, CommonResponse.class);
+
+                if (commonResponse.getDATA().get(0).getSTATUSCODE().equals("1")) {
+                    /*if (llSpecialRequest.getVisibility() == View.GONE) {
+                        llSpecialRequest.setVisibility(View.VISIBLE);
+                    } else {
+                        llSpecialRequest.setVisibility(View.GONE);
+                    }*/
+                    Toast.makeText(getContext(), "" + commonResponse.getDATA().get(0).getSTATUSMESSAGE(), Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                    /*FragmentManager fragmentManager = getFragmentManager();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.replace(R.id.main_container, new TakeOrderFragment());
+                    fragmentTransaction.commit();
+                    CommonMethods.setPreference(getContext(), AllKeys.SUM, "");*/
+                } else {
+                    /*if (llSpecialRequest.getVisibility() == View.GONE) {
+                        llSpecialRequest.setVisibility(View.VISIBLE);
+                    } else {
+                        llSpecialRequest.setVisibility(View.GONE);
+                    }*/
+                    etSpecialRequest.getText().clear();
+                    progressDialog.dismiss();
+                    Toast.makeText(getContext(), "" + commonResponse.getDATA().get(0).getSTATUSMESSAGE(), Toast.LENGTH_SHORT).show();
+                }
+            }, error -> {
+                progressDialog.dismiss();
+                Toast.makeText(getContext(), "" + error, Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "OnErrorResponse" + error.toString());
+            }) {
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("TABLENO", actTableNo.getText().toString());
+                    params.put("EMPID", CommonMethods.getPrefrence(mContext, AllKeys.EMPCODE));
+                    params.put("SID", stSectionId);
+                    params.put("KTYPE", stOrderId);
+                    params.put("KOTNARRATION", String.valueOf(0));
+                    params.put("USERID", String.valueOf(1));
+                    String data = new Gson().toJson(takeOrderArrayList);
+                    params.put("STRING_KOTLIST", data);
+                   // params.put("KOTTYPE", stOrderId);
+                    params.put("IS_PRINTKOT", CommonMethods.getPrefrence(getContext(), AllKeys.IsEnableKOT));
+                    params.put("ISPRINT_RESTAURANTKOT","true");
+                    params.put("ISPRINT_BARKOT","true");
+                    params.put("ISPRINT_RESTOBARKOT", "true");
+                    params.put("ISPRINT_RESTAURANTCOUNTERKOT", "true");
+                    //params.put("IS_COUNTER", "true");
+
+                    Log.e(TAG, "getParams: " + params);
+                    return params;
+                }
+            };
+            RequestQueue mQueue = Volley.newRequestQueue(getContext());
+            mQueue.add(stringRequest);
+
+            stringRequest.setRetryPolicy(new DefaultRetryPolicy(
+                    MY_SOCKET_TIMEOUT_MS,
+                    DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+        } else {
+            Toast.makeText(getContext(), "Please order Atleast one food!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     private void addFood( ) {
-        takeMenuOrder = new TakeMenuOrder(stGoodsCode, actMenu.getText().toString(), stItemType, stServesInId, etRate.getText().toString(),
-                etSpecialRequest.getText().toString(), etQuantity.getText().toString(), etAmount.getText().toString(), stServesInName);
+        takeMenuOrder = new TakeMenuOrder(
+                stGoodsCode,
+                actMenu.getText().toString(),
+                stItemType,
+                etSpecialRequest.getText().toString(),
+                stServesInId,
+                etRate.getText().toString(),
+                etQuantity.getText().toString(),
+                etAmount.getText().toString(),
+                stServesInName);
 
         takeOrderArrayList.add(takeMenuOrder);
 
@@ -239,6 +332,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             //Log.e(TAG, "onItemClick: actownername " + adapterView.getItemAtPosition(i));
             menuDataBO = (MenuDataBO) adapterView.getItemAtPosition(i);
             stGoodsCode = menuDataBO.getITEMCODE();
+            stItemType = menuDataBO.getITEMTYPE();
             Log.e(TAG, "onItemClick:menuDataBO " + menuDataBO);
             etQuantity.setText("1");
             if (!stGoodsCode.isEmpty()) {
@@ -254,6 +348,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             getTableDataBO = (GetTableDataBO) adapterView.getItemAtPosition(i);
             Log.e(TAG, "onItemClick: getTableData " + getTableDataBO);
             stSectionId = getTableDataBO.getSID();
+            stOrderId=getTableDataBO.getORDERTYPE();
 
             //load existing order details....
             if (!actTableNo.getText().toString().isEmpty()) {
@@ -453,8 +548,8 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
         Log.e("delete", "Array List when deleteing data " + takeOrderArrayList);*/
         Float total = 0.0f;
         for (int i = 0; i < takeOrderArrayList.size(); i++) {
-            Log.e("delete", "onClick: " + takeOrderArrayList.get(i).getTotal());
-            total += Float.parseFloat((takeOrderArrayList.get(i).getTotal()));
+            Log.e("delete", "onClick: " + takeOrderArrayList.get(i).getTOTAL());
+            total += Float.parseFloat((takeOrderArrayList.get(i).getTOTAL()));
         }
         sum = total;
         if(takeOrderArrayList.size()==0){

@@ -1,5 +1,6 @@
 package com.soulsoft.globalrestobar.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,20 +47,21 @@ public class TakeOrderAdapter extends RecyclerView.Adapter<TakeOrderAdapter.Take
         return new TakeOrderViewHolder(view,takeOrderListener);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, final int position) {
-        holder.tvCode.setText(takeMenuOrderArrayList.get(position).getGoodsCode());
-        holder.tvMenu.setText(takeMenuOrderArrayList.get(position).getGoodsName());
-        holder.tvQuantity.setText("QTY: "+takeMenuOrderArrayList.get(position).getQuantity());
+        holder.tvCode.setText(takeMenuOrderArrayList.get(position).getIID());
+        holder.tvMenu.setText(takeMenuOrderArrayList.get(position).getITEMNAME());
+        holder.tvQuantity.setText("QTY: "+takeMenuOrderArrayList.get(position).getQTY());
         //holder.tvServesIn.setText(takeMenuOrderArrayList.get(position).getUnitname());
-        holder.tvAmount.setText("AMT "+takeMenuOrderArrayList.get(position).getTotal());
+        holder.tvAmount.setText("AMT "+takeMenuOrderArrayList.get(position).getTOTAL());
 
         int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
         holder.cardView.setCardBackgroundColor(bgColor);
 
         for (int i = 0; i < takeMenuOrderArrayList.size(); i++) {
-            Log.e(TAG, "onClick: " + takeMenuOrderArrayList.get(i).getTotal());
-            total = Float.parseFloat((takeMenuOrderArrayList.get(i).getTotal()));
+            Log.e(TAG, "onClick: " + takeMenuOrderArrayList.get(i).getTOTAL());
+            total = Float.parseFloat((takeMenuOrderArrayList.get(i).getTOTAL()));
         }
         sum += total;
        // CommonMethods.setPreference(context,AllKeys.SUM1, String.valueOf(sum));
