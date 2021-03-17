@@ -9,5 +9,6 @@ public class ConfigUrl {
      public static final String GET_SYS_TABLE="GET_SYS_TABLE";
      public static final String ITEM_UNITCARD="ITEM_UNITCARD";
      public static final String BOOKEDTABLE_KOTDETAILS="BOOKEDTABLE_KOTDETAILS";
+     public static final String BOOKEDTABLES_LIST="BOOKEDTABLES_LIST";
      public static final String SAVE_KOT="SAVE_KOT";
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="#ffffff"
+            card_view:cardCornerRadius="@dimen/_5sdp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/_4sdp">
+
+                <TextView
+                    android:id="@+id/tv_table_no"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+                <!-- <View
+                     android:layout_width="0.6dp"
+                     android:layout_height="match_parent"
+                     android:background="@color/orange_theme" />
+ -->
+
+                <TextView
+                    android:id="@+id/tv_table_emp_id"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_3sdp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+                
+                <TextView
+                    android:id="@+id/tv_table_amount"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_3sdp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
+
+
+
+                <!--<androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/tv_view"
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:maxLines="1"
+                    android:fontFamily="@font/sourcesanspro_regular"
+                    android:background="@color/grey500"
+                    android:text="@string/view"
+                    android:textAllCaps="false"/>-->
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <ViewAnimator
+            android:layout_width="match_parent"
+            android:layout_height="0.6dp"
+            android:background="@color/black" />
+    </LinearLayout>
+</LinearLayout>
+
+

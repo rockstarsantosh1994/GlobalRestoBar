@@ -6,6 +6,16 @@ public class ItemUnitBO {
     private String UNITNAME;
     private String RATE;
 
+    public ItemUnitBO(){
+
+    }
+
+    public ItemUnitBO(String UNITID, String UNITNAME, String RATE) {
+        this.UNITID = UNITID;
+        this.UNITNAME = UNITNAME;
+        this.RATE = RATE;
+    }
+
     public String getUNITID( ) {
         return UNITID;
     }

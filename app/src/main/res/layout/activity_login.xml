@@ -17,7 +17,10 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="@dimen/_25ssp"
         android:layout_marginLeft="@dimen/_25sdp"
-        android:layout_marginStart="@dimen/_25sdp" />
+        android:layout_marginStart="@dimen/_25sdp"
+
+        android:textStyle="bold"
+        android:fontFamily="@font/sourcesanspro_regular"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,7 +30,9 @@
         android:textSize="@dimen/_10ssp"
         android:layout_marginLeft="@dimen/_25sdp"
         android:layout_marginStart="@dimen/_25sdp"
-        android:layout_below="@id/tv_title"/>
+        android:layout_below="@id/tv_title"
+        android:textStyle="bold"
+        android:fontFamily="@font/sourcesanspro_regular"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,7 +52,10 @@
             android:text="@string/sign_in_to_continue"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:layout_marginBottom="@dimen/_20sdp"
-            android:textColor="@color/colorPrimary"/>
+            android:textColor="@color/colorPrimary"
+
+            android:textStyle="bold"
+            android:fontFamily="@font/sourcesanspro_regular"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -55,7 +63,9 @@
             android:maxLines="1"
             android:text="@string/waitername"
             android:textColor="@color/black"
-            android:layout_gravity="left"/>
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            android:fontFamily="@font/sourcesanspro_regular"/>
 
         <AutoCompleteTextView
             android:id="@+id/act_waitername"
@@ -65,7 +75,9 @@
             android:hint="Ex: John Doe"
             android:imeOptions="actionNext"
             android:inputType="textAutoComplete"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:fontFamily="@font/sourcesanspro_regular"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -73,7 +85,9 @@
             android:layout_marginTop="@dimen/_20sdp"
             android:text="@string/password"
             android:textColor="@color/black"
-            android:layout_gravity="left"/>
+            android:layout_gravity="left"
+            android:textStyle="bold"
+            android:fontFamily="@font/sourcesanspro_regular"/>
 
         <EditText
             android:id="@+id/et_password"
@@ -82,7 +96,9 @@
             android:hint="*********"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textStyle="bold"
+            android:fontFamily="@font/sourcesanspro_regular"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_submit"
@@ -94,7 +110,8 @@
             android:text="@string/login"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/colorPrimaryDark"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:fontFamily="@font/sourcesanspro_regular" />
 
         <TextView
             android:id="@+id/tv_logindate"

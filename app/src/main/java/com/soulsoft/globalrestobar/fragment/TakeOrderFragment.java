@@ -20,7 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,6 +38,7 @@ import com.google.gson.Gson;
 import com.shreyaspatil.MaterialDialog.MaterialDialog;
 import com.soulsoft.globalrestobar.BaseFragment;
 import com.soulsoft.globalrestobar.R;
+import com.soulsoft.globalrestobar.activity.DashBoardActivity;
 import com.soulsoft.globalrestobar.adapter.ExistingOrderAdapter;
 import com.soulsoft.globalrestobar.adapter.GeTableAdapter1;
 import com.soulsoft.globalrestobar.adapter.GetMenuAdapter;
@@ -46,6 +47,7 @@ import com.soulsoft.globalrestobar.adapter.TakeOrderAdapter;
 import com.soulsoft.globalrestobar.model.CommonResponse;
 import com.soulsoft.globalrestobar.model.TakeMenuOrder;
 import com.soulsoft.globalrestobar.model.existingkot.ExistingDetailsResponse;
+import com.soulsoft.globalrestobar.model.itemunit.ItemUnitBO;
 import com.soulsoft.globalrestobar.model.itemunit.ItemUnitResponse;
 import com.soulsoft.globalrestobar.model.menucard.MenuDataBO;
 import com.soulsoft.globalrestobar.model.table.GetTableDataBO;
@@ -127,6 +129,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
     }
 
     private void initViews( ) {
+        DashBoardActivity.tvTitle.setText(getResources().getString(R.string.take_order1));
         //setLayoutManager for Menu recyler..
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(mContext){
             @Override
@@ -145,6 +148,11 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             }
         };
         rvExistingOrder.setLayoutManager(linearLayoutManager1);
+
+        ArrayList<ItemUnitBO> itemUnitBOS=new ArrayList<>();
+        itemUnitBOS.add(new ItemUnitBO("","Select",""));
+        ServesInSpinnerAdapter servesInSpinnerAdapter = new ServesInSpinnerAdapter(getContext(),itemUnitBOS);
+        acsSpinServesIn.setAdapter(servesInSpinnerAdapter);
 
         //Click listeners..
         btnClear.setOnClickListener(this);
@@ -199,6 +207,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
                 break;
 
             case R.id.btn_exit:
+                loadFragment(new TakeOrderFragment());
                 break;
 
             case R.id.btn_takeorder:
@@ -304,6 +313,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
         takeOrderAdapter.notifyDataSetChanged();
         rvMenu.setAdapter(takeOrderAdapter);
         // llSpecialRequest.setVisibility(View.GONE);
+
 
         //clear all fields....
         clearFields();
@@ -556,6 +566,14 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             btnTakeOrder.setText("Take Order");
         }else {
             btnTakeOrder.setText("Total: "+sum);
+        }
+    }
+
+    private void loadFragment(Fragment fragment) {
+        if (fragment != null) {
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.frameLayout, fragment);
+            fragmentTransaction.commitAllowingStateLoss();
         }
     }
 }

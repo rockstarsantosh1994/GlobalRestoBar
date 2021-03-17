@@ -1,7 +1,7 @@
 package com.soulsoft.globalrestobar.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +15,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.soulsoft.globalrestobar.R;
 import com.soulsoft.globalrestobar.model.existingkot.ExistingKotBO;
+import com.soulsoft.globalrestobar.model.runningtable.RunningOrderBO;
 
 import java.util.ArrayList;
 
-public class ExistingOrderAdapter extends RecyclerView.Adapter<ExistingOrderAdapter.TakeOrderViewHolder> {
+public class RunningOrderDetailsAdapter extends RecyclerView.Adapter<RunningOrderDetailsAdapter.TakeOrderViewHolder> {
 
     Context context;
     ArrayList<ExistingKotBO> existingKotBOArrayList;
-    float total,sum=0.0f;
-    private static final String TAG="TakeOrderAdapter";
     private TakeOrderListener takeOrderListener;
     private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
 
@@ -32,7 +31,7 @@ public class ExistingOrderAdapter extends RecyclerView.Adapter<ExistingOrderAdap
         this.ExistingKotBOArrayList = takeOrderArrayList;
     }*/
 
-    public ExistingOrderAdapter(Context context, ArrayList<ExistingKotBO> ExistingKotBOArrayList) {
+    public RunningOrderDetailsAdapter(Context context, ArrayList<ExistingKotBO> ExistingKotBOArrayList) {
         this.context = context;
         this.existingKotBOArrayList = ExistingKotBOArrayList;
     }
@@ -41,21 +40,22 @@ public class ExistingOrderAdapter extends RecyclerView.Adapter<ExistingOrderAdap
     @Override
     public TakeOrderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.custom_takeorder_row, parent, false);
+        View view = inflater.inflate(R.layout.custom_running_order_details, parent, false);
         return new TakeOrderViewHolder(view,takeOrderListener);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, final int position) {
-        holder.ivDeleteMenu.setVisibility(View.GONE);
+
+        int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
+        holder.cardView.setCardBackgroundColor(bgColor);
+
         holder.tvCode.setText(existingKotBOArrayList.get(position).getIID());
         holder.tvMenu.setText(existingKotBOArrayList.get(position).getMENUNAME());
         holder.tvQuantity.setText("QTY: "+existingKotBOArrayList.get(position).getQTY());
         //holder.tvServesIn.setText(ExistingKotBOArrayList.get(position).getUnitname());
         holder.tvAmount.setText("AMT: "+existingKotBOArrayList.get(position).getAMOUNT());
-
-        int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
-        holder.cardView.setCardBackgroundColor(bgColor);
     }
 
     @Override
@@ -67,7 +67,6 @@ public class ExistingOrderAdapter extends RecyclerView.Adapter<ExistingOrderAdap
 
         private CardView cardView;
         private TextView tvCode, tvMenu, tvQuantity, tvServesIn, tvAmount;
-        private ImageView ivDeleteMenu;
         private TakeOrderListener takeOrderListener;
 
         public TakeOrderViewHolder(@NonNull View itemView, TakeOrderListener takeOrderListener) {
@@ -78,8 +77,6 @@ public class ExistingOrderAdapter extends RecyclerView.Adapter<ExistingOrderAdap
             tvQuantity = itemView.findViewById(R.id.tv_quantity);
            // tvServesIn = itemView.findViewById(R.id.tv_servesin);
             tvAmount = itemView.findViewById(R.id.tv_amount);
-            ivDeleteMenu = itemView.findViewById(R.id.ivDelete);
-            ivDeleteMenu.setOnClickListener(this);
             this.takeOrderListener=takeOrderListener;
         }
 

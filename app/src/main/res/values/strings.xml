@@ -9,10 +9,10 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="login_date">Login Date</string>
-    <string name="take_order1">Take Order</string>
-    <string name="running_order">Running Order</string>
+    <string name="take_order1">Save KOT</string>
+    <string name="running_order">Running KOT</string>
     <string name="cancel_and_shift">Cancel And Shift</string>
-    <string name="cancel_order1">Cancel Order</string>
+    <string name="cancel_order1">Cancel KOT</string>
     <string name="shift_table1">Shift Table</string>
     <string name="billing">Billing</string>
     <string name="bill">Bill</string>
@@ -27,15 +27,18 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="table_no">Table</string>
-    <string name="menu">Menu</string>
-    <string name="quantity">Quantity</string>
+    <string name="menu">Item Name</string>
+    <string name="quantity">Qty</string>
     <string name="rate">Rate</string>
     <string name="amount">Amount</string>
     <string name="special_request">Special Request</string>
     <string name="clear">Clear</string>
     <string name="add">Add</string>
     <string name="Reset">Reset</string>
-    <string name="take_order">Take Order</string>
+    <string name="take_order">Save KOT</string>
     <string name="ex_127_0_0_1">Ex: 127.0.0.1</string>
     <string name="existing_orders">Existing Orders</string>
+    <string name="search">Search Table</string>
+    <string name="view">View</string>
+    <string name="search_item">Search Item</string>
 </resources>

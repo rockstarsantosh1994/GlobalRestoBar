@@ -47,7 +47,8 @@
                         android:maxLines="1"
                         android:paddingStart="@dimen/_8sdp"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sourcesanspro_regular"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
@@ -69,7 +70,8 @@
                         android:paddingStart="@dimen/_8sdp"
                         android:singleLine="true"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sourcesanspro_regular"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -89,7 +91,8 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sourcesanspro_regular" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -98,20 +101,33 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <Spinner
-                    android:id="@+id/spin_ServesIn"
+                <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
                     android:layout_margin="@dimen/_2sdp"
-                    android:layout_weight="0.40"
-                    android:editable="false"
-                    android:textStyle="bold" />
+                    card_view:cardCornerRadius="@dimen/_2sdp"
+                    card_view:strokeColor="@color/grey300"
+                    card_view:cardBackgroundColor="@color/grey300"
+                    card_view:strokeWidth="@dimen/_1sdp"
+                    android:gravity="center">
+
+                    <Spinner
+                        android:id="@+id/spin_ServesIn"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/_2sdp"
+                        android:editable="false"
+                        android:fontFamily="@font/sourcesanspro_regular"
+                        android:textStyle="bold" />
+                </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
-                    android:layout_weight="0.30">
+                    android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_rate"
@@ -123,14 +139,15 @@
                         android:hint="@string/rate"
                         android:maxLines="1"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sourcesanspro_regular"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
-                    android:layout_weight="0.30">
+                    android:layout_weight="1">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_amount"
@@ -141,7 +158,8 @@
                         android:hint="@string/amount"
                         android:maxLines="1"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sourcesanspro_regular"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -150,7 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
@@ -165,7 +183,8 @@
                         android:inputType="text"
                         android:maxLines="1"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        android:fontFamily="@font/sourcesanspro_regular"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -193,7 +212,8 @@
                     android:gravity="center"
                     android:text="@string/clear"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/sourcesanspro_normal"/>
 
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -208,7 +228,8 @@
                     android:gravity="center"
                     android:text="@string/add"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/sourcesanspro_normal"/>
 
             </LinearLayout>
 
@@ -236,7 +257,7 @@
                 android:id="@+id/ll_existingorder"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                 android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -247,7 +268,8 @@
                     android:text="@string/existing_orders"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:fontFamily="@font/sourcesanspro_regular"/>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_existingorder"
@@ -277,7 +299,8 @@
             android:text="@string/Reset"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/black" />
+            android:textColor="@color/black"
+            android:fontFamily="@font/sourcesanspro_regular"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_takeorder"
@@ -290,7 +313,8 @@
             android:text="@string/take_order"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:fontFamily="@font/sourcesanspro_regular" />
     </LinearLayout>
 
 </RelativeLayout>

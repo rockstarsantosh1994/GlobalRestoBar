@@ -3,7 +3,7 @@
 
     <item
         android:id="@+id/cancel_order_id"
-        android:title="@string/cancel"
+        android:title="@string/cancel_order1"
         android:icon="@drawable/ic_cancel_order"/>
 
     <item
@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/generate_bill"
-        android:title="@string/bill"
+        android:title="@string/running_order"
         android:icon="@drawable/ic_order_taken">
     </item>
 </menu>
