@@ -7,11 +7,11 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.soulsoft.globalrestobar.BaseActivity;
 import com.soulsoft.globalrestobar.R;
-import com.soulsoft.globalrestobar.fragment.CancelFragment;
 import com.soulsoft.globalrestobar.fragment.RunningTableFragment;
 import com.soulsoft.globalrestobar.fragment.TakeOrderFragment;
 import org.jetbrains.annotations.NotNull;
@@ -70,16 +70,16 @@ public class DashBoardActivity extends BaseActivity /*implements NavigationView.
             @Override
             public void onTabSelected(int i, @Nullable AnimatedBottomBar.Tab tab, int i1, @NotNull AnimatedBottomBar.Tab tab1) {
                 switch (i1){
-                    case 0://take order
-                        loadFragment(new CancelFragment());
+                    case 0://cancel fragment
+                        loadCancelFragment();
                         break;
 
-                    case 1://bill fragment..
+                    case 1://take order fragment...
                         loadFragment(new TakeOrderFragment());
                         break;
 
-                    case 2://Cancel order....
-                        loadFragment(new RunningTableFragment());
+                    case 2://running order fragment...
+                        loadRunningFragment();
                         break;
                 }
             }
@@ -114,6 +114,24 @@ public class DashBoardActivity extends BaseActivity /*implements NavigationView.
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }*/
+
+    private void loadCancelFragment() {
+        RunningTableFragment runningTableFragment = new RunningTableFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("type","cancel");
+        runningTableFragment.setArguments(bundle);
+        loadFragment(runningTableFragment);
+        getSupportFragmentManager().popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
+
+    private void loadRunningFragment() {
+        RunningTableFragment runningTableFragment = new RunningTableFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("type","running");
+        runningTableFragment.setArguments(bundle);
+        loadFragment(runningTableFragment);
+        getSupportFragmentManager().popBackStack("", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+    }
 
     private void loadFragment(Fragment fragment) {
         if (fragment != null) {

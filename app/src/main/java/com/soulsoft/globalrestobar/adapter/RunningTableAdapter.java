@@ -7,11 +7,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import com.soulsoft.globalrestobar.R;
+import com.soulsoft.globalrestobar.activity.CancelOrderActivity;
 import com.soulsoft.globalrestobar.activity.RunningOrderDetailsActivity;
 import com.soulsoft.globalrestobar.model.runningtable.RunningOrderBO;
 import java.util.ArrayList;
@@ -23,10 +26,12 @@ public class RunningTableAdapter extends RecyclerView.Adapter<RunningTableAdapte
     private Context context;
     private ArrayList<RunningOrderBO> runningOrderBOArrayList;
     private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
+    private String type="";
 
-    public RunningTableAdapter(Context context, ArrayList<RunningOrderBO> runningOrderBOArrayList) {
+    public RunningTableAdapter(Context context, ArrayList<RunningOrderBO> runningOrderBOArrayList,String type) {
         this.context = context;
         this.runningOrderBOArrayList = runningOrderBOArrayList;
+        this.type=type;
     }
 
     @NonNull
@@ -48,11 +53,17 @@ public class RunningTableAdapter extends RecyclerView.Adapter<RunningTableAdapte
         holder.cardView.setCardBackgroundColor(bgColor);
 
         holder.cardView.setOnClickListener(v -> {
-            Intent intent=new Intent(context, RunningOrderDetailsActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            intent.putExtra("tableno",runningOrderBOArrayList.get(position).getTABLE());
-            context.startActivity(intent);
-
+            if(type.equalsIgnoreCase("running")){
+                Intent intent=new Intent(context, RunningOrderDetailsActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("tableno",runningOrderBOArrayList.get(position).getTABLE());
+                context.startActivity(intent);
+            }else if(type.equalsIgnoreCase("cancel")){
+                Intent intent=new Intent(context, CancelOrderActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.putExtra("tableno",runningOrderBOArrayList.get(position).getTABLE());
+                context.startActivity(intent);
+            }
         });
     }
 

@@ -21,7 +21,8 @@
         android:theme="@style/Theme.GlobalRestoBar"
         android:usesCleartextTraffic="true"
         tools:targetApi="n">
-        <activity android:name=".activity.RunningOrderDetailsActivity"></activity>
+        <activity android:name=".activity.CancelOrderActivity"></activity>
+        <activity android:name=".activity.RunningOrderDetailsActivity" />
         <activity
             android:name=".activity.IPAddressActivity"
             android:screenOrientation="portrait" />

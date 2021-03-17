@@ -41,4 +41,7 @@
     <string name="search">Search Table</string>
     <string name="view">View</string>
     <string name="search_item">Search Item</string>
+    <string name="cancel_kot">Cancel KOT</string>
+    <string name="return_qty">Return Qty</string>
+    <string name="reason">Reason</string>
 </resources>

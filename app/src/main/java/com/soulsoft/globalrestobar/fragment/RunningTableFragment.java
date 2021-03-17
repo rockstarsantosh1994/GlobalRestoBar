@@ -40,6 +40,7 @@ public class RunningTableFragment extends BaseFragment {
     RecyclerView rvRunningOrder;
     private final ArrayList<RunningOrderBO> runningOrderBOArrayList=new ArrayList<>();
     private RunningTableAdapter runningTableAdapter;
+    private String type="";
 
     public RunningTableFragment( ) {
         // Required empty public constructor
@@ -56,6 +57,10 @@ public class RunningTableFragment extends BaseFragment {
 
         //basic intialisation...
         initViews();
+
+        if (getArguments().getString("type") != null) {
+            type=getArguments().getString("type");
+        }
 
         //get ongoing table details..
         if(CommonMethods.isNetworkAvailable(mContext)){
@@ -103,7 +108,7 @@ public class RunningTableFragment extends BaseFragment {
             if(runningOrderResponse.getTable().size()>0){
                 runningOrderBOArrayList.addAll(runningOrderResponse.getTable());
                 //llExistingOrder.setVisibility(View.VISIBLE);
-                runningTableAdapter=new RunningTableAdapter(mContext,runningOrderBOArrayList);
+                runningTableAdapter=new RunningTableAdapter(mContext,runningOrderBOArrayList,type);
                 rvRunningOrder.setAdapter(runningTableAdapter);
             }else{
                 //llExistingOrder.setVisibility(View.GONE);
