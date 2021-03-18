@@ -1,5 +1,6 @@
 package com.soulsoft.globalrestobar.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,12 +26,7 @@ public class ExistingOrderAdapter extends RecyclerView.Adapter<ExistingOrderAdap
     float total,sum=0.0f;
     private static final String TAG="TakeOrderAdapter";
     private TakeOrderListener takeOrderListener;
-    private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
-
-    /*public TakeOrderAdapter(Context baseContext, ArrayList<ExistingKotBO> takeOrderArrayList) {
-        this.context = baseContext;
-        this.ExistingKotBOArrayList = takeOrderArrayList;
-    }*/
+    //private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
 
     public ExistingOrderAdapter(Context context, ArrayList<ExistingKotBO> ExistingKotBOArrayList) {
         this.context = context;
@@ -45,17 +41,19 @@ public class ExistingOrderAdapter extends RecyclerView.Adapter<ExistingOrderAdap
         return new TakeOrderViewHolder(view,takeOrderListener);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, final int position) {
         holder.ivDeleteMenu.setVisibility(View.GONE);
         holder.tvCode.setText(existingKotBOArrayList.get(position).getIID());
-        holder.tvMenu.setText(existingKotBOArrayList.get(position).getMENUNAME());
-        holder.tvQuantity.setText("QTY: "+existingKotBOArrayList.get(position).getQTY());
-        //holder.tvServesIn.setText(ExistingKotBOArrayList.get(position).getUnitname());
-        holder.tvAmount.setText("AMT: "+existingKotBOArrayList.get(position).getAMOUNT());
-
-        int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
-        holder.cardView.setCardBackgroundColor(bgColor);
+        holder.tvMenu.setText(existingKotBOArrayList.get(position).getQTY()+" * "
+                +existingKotBOArrayList.get(position).getMENUNAME());
+        //holder.tvQuantity.setText("QTY: "+takeMenuOrderArrayList.get(position).getQTY());
+        //holder.tvServesIn.setText(takeMenuOrderArrayList.get(position).getUnitname());
+        holder.tvAmount.setText("₹."+existingKotBOArrayList.get(position).getAMOUNT());
+    /*    int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
+        holder.cardView.setCardBackgroundColor(bgColor);*/
+        holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.yellow_50));
     }
 
     @Override

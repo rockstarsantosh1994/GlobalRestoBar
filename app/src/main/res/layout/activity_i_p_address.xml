@@ -82,10 +82,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/button_background"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/validate_ip"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/black"
             android:textStyle="bold"
             android:fontFamily="@font/sourcesanspro_regular"/>
     </LinearLayout>

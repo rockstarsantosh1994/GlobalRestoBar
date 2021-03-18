@@ -27,42 +27,41 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/et_tablenoinputlayout"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/_2sdp"
-                    android:layout_weight="0.20">
+                    android:layout_width="@dimen/_60sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_margin="@dimen/_2sdp">
 
                     <AutoCompleteTextView
                         android:id="@+id/act_tableno"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:hint="@string/table_no"
                         android:imeOptions="actionNext"
                         android:inputType="number"
                         android:maxLines="1"
                         android:paddingStart="@dimen/_8sdp"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/sourcesanspro_regular"/>
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <!--style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
                 <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/_2sdp"
-                    android:layout_weight="0.60">
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_margin="@dimen/_2sdp">
 
                     <AutoCompleteTextView
                         android:id="@+id/act_menu"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:ellipsize="end"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:hint="@string/menu"
                         android:imeOptions="actionNext"
                         android:inputType="text"
@@ -70,10 +69,16 @@
                         android:paddingStart="@dimen/_8sdp"
                         android:singleLine="true"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/sourcesanspro_regular"/>
+                        android:textStyle="bold" />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
@@ -85,32 +90,26 @@
                         android:id="@+id/et_qty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:hint="@string/quantity"
                         android:imeOptions="actionDone"
                         android:inputType="number"
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/sourcesanspro_regular" />
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_margin="@dimen/_2sdp"
+                    android:layout_weight="0.60"
+                    android:gravity="center"
+                    card_view:cardBackgroundColor="@color/grey300"
                     card_view:cardCornerRadius="@dimen/_2sdp"
                     card_view:strokeColor="@color/grey300"
-                    card_view:cardBackgroundColor="@color/grey300"
-                    card_view:strokeWidth="@dimen/_1sdp"
-                    android:gravity="center">
+                    card_view:strokeWidth="@dimen/_1sdp">
 
                     <Spinner
                         android:id="@+id/spin_ServesIn"
@@ -127,7 +126,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
-                    android:layout_weight="1">
+                    android:layout_weight="0.20">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_rate"
@@ -136,18 +135,19 @@
                         android:clickable="false"
                         android:editable="false"
                         android:focusable="false"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:hint="@string/rate"
                         android:maxLines="1"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/sourcesanspro_regular"/>
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_2sdp"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:visibility="gone">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/et_amount"
@@ -155,11 +155,11 @@
                         android:layout_height="wrap_content"
                         android:editable="false"
                         android:focusable="false"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:hint="@string/amount"
                         android:maxLines="1"
                         android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/sourcesanspro_regular"/>
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -178,13 +178,13 @@
                         android:id="@+id/et_splrequest"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/sourcesanspro_regular"
                         android:hint="@string/special_request"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:maxLines="1"
                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/sourcesanspro_regular"/>
+                        android:textStyle="bold" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -209,11 +209,11 @@
                     android:layout_weight="1"
                     android:background="@drawable/button_background"
                     android:backgroundTint="@color/grey300"
+                    android:fontFamily="@font/sourcesanspro_normal"
                     android:gravity="center"
                     android:text="@string/clear"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/sourcesanspro_normal"/>
+                    android:textColor="@color/black" />
 
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -224,12 +224,12 @@
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:background="@drawable/button_background"
-                    android:backgroundTint="@color/black"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:fontFamily="@font/sourcesanspro_normal"
                     android:gravity="center"
                     android:text="@string/add"
                     android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/sourcesanspro_normal"/>
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -248,6 +248,18 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:text="@string/new_orders"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_menu"
                 android:layout_width="match_parent"
@@ -265,11 +277,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/sourcesanspro_regular"
                     android:text="@string/existing_orders"
                     android:textAppearance="@style/TextAppearance.AppCompat.Small"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
-                    android:fontFamily="@font/sourcesanspro_regular"/>
+                    android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_existingorder"
@@ -296,11 +308,11 @@
             android:layout_weight="1"
             android:background="@drawable/button_background"
             android:backgroundTint="@color/grey300"
+            android:fontFamily="@font/sourcesanspro_regular"
             android:text="@string/Reset"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/black"
-            android:fontFamily="@font/sourcesanspro_regular"/>
+            android:textColor="@color/black" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_takeorder"
@@ -309,12 +321,12 @@
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/colorPrimary"
+            android:fontFamily="@font/sourcesanspro_regular"
             android:text="@string/take_order"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimaryDark"
-            android:fontFamily="@font/sourcesanspro_regular" />
+            android:textColor="@color/black" />
     </LinearLayout>
 
 </RelativeLayout>

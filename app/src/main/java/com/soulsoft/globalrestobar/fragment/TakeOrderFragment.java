@@ -2,12 +2,16 @@ package com.soulsoft.globalrestobar.fragment;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
@@ -149,7 +153,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
         };
         rvExistingOrder.setLayoutManager(linearLayoutManager1);
 
-        ArrayList<ItemUnitBO> itemUnitBOS=new ArrayList<>();
+            ArrayList<ItemUnitBO> itemUnitBOS=new ArrayList<>();
         itemUnitBOS.add(new ItemUnitBO("","Select",""));
         ServesInSpinnerAdapter servesInSpinnerAdapter = new ServesInSpinnerAdapter(getContext(),itemUnitBOS);
         acsSpinServesIn.setAdapter(servesInSpinnerAdapter);
@@ -240,11 +244,12 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
                     }*/
                     Toast.makeText(getContext(), "" + commonResponse.getDATA().get(0).getSTATUSMESSAGE(), Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
-                    /*FragmentManager fragmentManager = getFragmentManager();
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.replace(R.id.main_container, new TakeOrderFragment());
-                    fragmentTransaction.commit();
-                    CommonMethods.setPreference(getContext(), AllKeys.SUM, "");*/
+
+                    //Call after successful kot created...
+                    Intent intent = new Intent(mContext, DashBoardActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                    Objects.requireNonNull(getActivity()).finish();
                 } else {
                     /*if (llSpecialRequest.getVisibility() == View.GONE) {
                         llSpecialRequest.setVisibility(View.VISIBLE);
@@ -345,6 +350,10 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             stItemType = menuDataBO.getITEMTYPE();
             Log.e(TAG, "onItemClick:menuDataBO " + menuDataBO);
             etQuantity.setText("1");
+
+            //hide keyboard
+            hideSoftKeyboard(actMenu);
+
             if (!stGoodsCode.isEmpty()) {
                 loadServesInData();
             }
@@ -359,6 +368,9 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             Log.e(TAG, "onItemClick: getTableData " + getTableDataBO);
             stSectionId = getTableDataBO.getSID();
             stOrderId=getTableDataBO.getORDERTYPE();
+
+            //hide keyboard
+            hideSoftKeyboard(actTableNo);
 
             //load existing order details....
             if (!actTableNo.getText().toString().isEmpty()) {
@@ -576,4 +588,10 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             fragmentTransaction.commitAllowingStateLoss();
         }
     }
+
+    protected void hideSoftKeyboard(View input) {
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(input.getWindowToken(), 0);
+    }
+
 }

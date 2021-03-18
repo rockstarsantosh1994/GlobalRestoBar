@@ -38,7 +38,6 @@ public class SplashActivity extends BaseActivity {
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
-
             }
         }, SPLASH_DISPLAY_DURATION);
     }

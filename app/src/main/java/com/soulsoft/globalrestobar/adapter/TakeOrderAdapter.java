@@ -26,7 +26,7 @@ public class TakeOrderAdapter extends RecyclerView.Adapter<TakeOrderAdapter.Take
     float total,sum=0.0f;
     private static final String TAG="TakeOrderAdapter";
     private TakeOrderListener takeOrderListener;
-    private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
+   // private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
 
     /*public TakeOrderAdapter(Context baseContext, ArrayList<TakeMenuOrder> takeOrderArrayList) {
         this.context = baseContext;
@@ -51,13 +51,15 @@ public class TakeOrderAdapter extends RecyclerView.Adapter<TakeOrderAdapter.Take
     @Override
     public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, final int position) {
         holder.tvCode.setText(takeMenuOrderArrayList.get(position).getIID());
-        holder.tvMenu.setText(takeMenuOrderArrayList.get(position).getITEMNAME());
-        holder.tvQuantity.setText("QTY: "+takeMenuOrderArrayList.get(position).getQTY());
+        holder.tvMenu.setText(takeMenuOrderArrayList.get(position).getQTY()+" * "
+                +takeMenuOrderArrayList.get(position).getITEMNAME());
+        //holder.tvQuantity.setText("QTY: "+takeMenuOrderArrayList.get(position).getQTY());
         //holder.tvServesIn.setText(takeMenuOrderArrayList.get(position).getUnitname());
-        holder.tvAmount.setText("AMT "+takeMenuOrderArrayList.get(position).getTOTAL());
+        holder.tvAmount.setText("₹."+takeMenuOrderArrayList.get(position).getTOTAL());
 
-        int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
-        holder.cardView.setCardBackgroundColor(bgColor);
+      /*  int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
+        holder.cardView.setCardBackgroundColor(bgColor);*/
+        holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.yellow_100));
 
         for (int i = 0; i < takeMenuOrderArrayList.size(); i++) {
             Log.e(TAG, "onClick: " + takeMenuOrderArrayList.get(i).getTOTAL());

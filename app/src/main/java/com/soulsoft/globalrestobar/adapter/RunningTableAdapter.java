@@ -13,55 +13,58 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.soulsoft.globalrestobar.R;
 import com.soulsoft.globalrestobar.activity.CancelOrderActivity;
 import com.soulsoft.globalrestobar.activity.RunningOrderDetailsActivity;
 import com.soulsoft.globalrestobar.model.runningtable.RunningOrderBO;
+
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RunningTableAdapter extends RecyclerView.Adapter<RunningTableAdapter.RunningTableViewHolder>{
+public class RunningTableAdapter extends RecyclerView.Adapter<RunningTableAdapter.RunningTableViewHolder> {
 
     private Context context;
     private ArrayList<RunningOrderBO> runningOrderBOArrayList;
-    private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
-    private String type="";
+    //private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
+    private String type = "";
 
-    public RunningTableAdapter(Context context, ArrayList<RunningOrderBO> runningOrderBOArrayList,String type) {
+    public RunningTableAdapter(Context context, ArrayList<RunningOrderBO> runningOrderBOArrayList, String type) {
         this.context = context;
         this.runningOrderBOArrayList = runningOrderBOArrayList;
-        this.type=type;
+        this.type = type;
     }
 
     @NonNull
     @Override
     public RunningTableViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater=LayoutInflater.from(parent.getContext());
-        View view=inflater.inflate(R.layout.custom_running_table,parent,false);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view = inflater.inflate(R.layout.custom_running_table, parent, false);
         return new RunningTableViewHolder(view);
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RunningTableViewHolder holder, int position) {
-        holder.tvTableNo.setText("Table No:- "+runningOrderBOArrayList.get(position).getTABLE());
-        holder.tvTableAmount.setText("₹."+runningOrderBOArrayList.get(position).getAMOUNT());
-        holder.tvEmpId.setText("Emp ID:- "+runningOrderBOArrayList.get(position).getEMPID());
+        holder.tvTableNo.setText(runningOrderBOArrayList.get(position).getTABLE());
+        // holder.tvTableAmount.setText("₹."+runningOrderBOArrayList.get(position).getAMOUNT());
+        // holder.tvEmpId.setText("Emp ID:- "+runningOrderBOArrayList.get(position).getEMPID());
 
-        int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
-        holder.cardView.setCardBackgroundColor(bgColor);
+        //int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
+        holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.yellow_50));
 
         holder.cardView.setOnClickListener(v -> {
-            if(type.equalsIgnoreCase("running")){
-                Intent intent=new Intent(context, RunningOrderDetailsActivity.class);
+            if (type.equalsIgnoreCase("running")) {
+                Intent intent = new Intent(context, RunningOrderDetailsActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("tableno",runningOrderBOArrayList.get(position).getTABLE());
+                intent.putExtra("tableno", runningOrderBOArrayList.get(position).getTABLE());
                 context.startActivity(intent);
-            }else if(type.equalsIgnoreCase("cancel")){
-                Intent intent=new Intent(context, CancelOrderActivity.class);
+            } else if (type.equalsIgnoreCase("cancel")) {
+                Intent intent = new Intent(context, CancelOrderActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("tableno",runningOrderBOArrayList.get(position).getTABLE());
+                intent.putExtra("tableno", runningOrderBOArrayList.get(position).getTABLE());
                 context.startActivity(intent);
             }
         });
@@ -72,25 +75,25 @@ public class RunningTableAdapter extends RecyclerView.Adapter<RunningTableAdapte
         return runningOrderBOArrayList.size();
     }
 
-    public class RunningTableViewHolder extends RecyclerView.ViewHolder{
+    public class RunningTableViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.tv_table_no)
         TextView tvTableNo;
-        @BindView(R.id.tv_table_amount)
+        /*@BindView(R.id.tv_table_amount)
         TextView tvTableAmount;
         @BindView(R.id.tv_table_emp_id)
-        TextView tvEmpId;
+        TextView tvEmpId;*/
         @BindView(R.id.cardView)
         CardView cardView;
 
         public RunningTableViewHolder(@NonNull View itemView) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            ButterKnife.bind(this, itemView);
         }
     }
 
-    public void updateData(Context context,ArrayList<RunningOrderBO> data) {
-        this.context=context;
+    public void updateData(Context context, ArrayList<RunningOrderBO> data) {
+        this.context = context;
         this.runningOrderBOArrayList = data;
         notifyDataSetChanged();
     }

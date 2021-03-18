@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,8 +74,8 @@ public class RunningTableFragment extends BaseFragment {
     private void initViews(){
         DashBoardActivity.tvTitle.setText(getResources().getString(R.string.running_order));
 
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(mContext);
-        rvRunningOrder.setLayoutManager(linearLayoutManager);
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(mContext,2);
+        rvRunningOrder.setLayoutManager(gridLayoutManager);
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
