@@ -41,8 +41,6 @@ public class RunningOrderDetailsActivity extends BaseActivity {
     EditText etSearch;
     @BindView(R.id.rv_running_order_details)
     RecyclerView rvRunningOrderDetails;
-    @BindView(R.id.ll_buttons)
-    LinearLayout llButtons;
 
     private ArrayList<ExistingKotBO> existingKotBOArrayList=new ArrayList<>();
     RunningOrderDetailsAdapter runningOrderDetailsAdapter;
@@ -83,9 +81,6 @@ public class RunningOrderDetailsActivity extends BaseActivity {
     }
 
     private void initViews(){
-        //No need of buttons in running order activity
-        llButtons.setVisibility(View.GONE);
-
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(mContext);
         rvRunningOrderDetails.setLayoutManager(linearLayoutManager);
     }

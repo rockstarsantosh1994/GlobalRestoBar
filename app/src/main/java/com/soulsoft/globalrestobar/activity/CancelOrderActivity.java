@@ -78,7 +78,7 @@ public class CancelOrderActivity extends BaseActivity {
 
     @Override
     protected int getActivityLayout( ) {
-        return R.layout.activity_running_order_details;
+        return R.layout.activity_cancel_order;
     }
 
     private void initViews(){

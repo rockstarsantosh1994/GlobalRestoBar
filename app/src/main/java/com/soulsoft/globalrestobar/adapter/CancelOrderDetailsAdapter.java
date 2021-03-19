@@ -22,7 +22,7 @@ public class CancelOrderDetailsAdapter extends RecyclerView.Adapter<CancelOrderD
     Context context;
     ArrayList<ExistingKotBO> existingKotBOArrayList;
     private TakeOrderListener takeOrderListener;
-    private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
+    //private final int[] backgroundColors = {R.color.yellow_50,R.color.yellow_100};
 
     /*public TakeOrderAdapter(Context baseContext, ArrayList<ExistingKotBO> takeOrderArrayList) {
         this.context = baseContext;
@@ -46,11 +46,12 @@ public class CancelOrderDetailsAdapter extends RecyclerView.Adapter<CancelOrderD
     @Override
     public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, final int position) {
 
-        int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
-        holder.cardView.setCardBackgroundColor(bgColor);
-
-        int bgColor1 = ContextCompat.getColor(context, backgroundColors[position % 2]);
-        holder.cardView2.setCardBackgroundColor(bgColor1);
+        //int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
+        //holder.cardView.setCardBackgroundColor(bgColor);
+        holder.cardView.setCardBackgroundColor(context.getResources().getColor(R.color.yellow_50));
+        holder.cardView2.setCardBackgroundColor(context.getResources().getColor(R.color.yellow_50));
+      //  int bgColor1 = ContextCompat.getColor(context, backgroundColors[position % 2]);
+        //holder.cardView2.setCardBackgroundColor(bgColor1);
 
         holder.tvCode.setText(existingKotBOArrayList.get(position).getIID());
         holder.tvMenu.setText(existingKotBOArrayList.get(position).getMENUNAME());
