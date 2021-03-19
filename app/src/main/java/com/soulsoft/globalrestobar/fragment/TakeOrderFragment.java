@@ -17,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -97,6 +98,8 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
     RecyclerView rvExistingOrder;
     @BindView(R.id.ll_existingorder)
     LinearLayout llExistingOrder;
+    @BindView(R.id.tv_total_amount)
+    TextView tvTotalAmount;
 
     private final ArrayList<MenuDataBO> menuDataBOArrayList = new ArrayList<>();
     private final ArrayList<GetTableDataBO> getTableDataBOArrayList = new ArrayList<>();
@@ -200,14 +203,17 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
             case R.id.btn_add:
                 if (isValidatedTable()) {
                     addFood();
+
+                    for (int i = 0; i < takeOrderArrayList.size(); i++) {
+                        Log.e(TAG, "onClick: " + takeOrderArrayList.get(i).getTOTAL());
+                        total = Float.parseFloat((takeOrderArrayList.get(i).getTOTAL()));
+                    }
+                    sum += total;
+                    tvTotalAmount.setVisibility(View.VISIBLE);
+                    btnTakeOrder.setText("Total: "+sum);
+                    tvTotalAmount.setText("Total(Qty * Rate) "+sum);
+                    // sum has the value for the food menu total.
                 }
-                for (int i = 0; i < takeOrderArrayList.size(); i++) {
-                    Log.e(TAG, "onClick: " + takeOrderArrayList.get(i).getTOTAL());
-                    total = Float.parseFloat((takeOrderArrayList.get(i).getTOTAL()));
-                }
-                sum += total;
-                btnTakeOrder.setText("Total: "+sum);
-                // sum has the value for the food menu total.
                 break;
 
             case R.id.btn_exit:
@@ -275,14 +281,11 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
                     params.put("USERID", String.valueOf(1));
                     String data = new Gson().toJson(takeOrderArrayList);
                     params.put("STRING_KOTLIST", data);
-                   // params.put("KOTTYPE", stOrderId);
-                    params.put("IS_PRINTKOT", CommonMethods.getPrefrence(getContext(), AllKeys.IsEnableKOT));
-                    params.put("ISPRINT_RESTAURANTKOT","true");
-                    params.put("ISPRINT_BARKOT","true");
-                    params.put("ISPRINT_RESTOBARKOT", "true");
-                    params.put("ISPRINT_RESTAURANTCOUNTERKOT", "true");
-                    //params.put("IS_COUNTER", "true");
-
+                    params.put("IS_PRINTKOT", CommonMethods.getPrefrence(getContext(), AllKeys.ISPRINTORDER));
+                    params.put("ISPRINT_RESTAURANTKOT",CommonMethods.getPrefrence(mContext,AllKeys.ISPRINT_REST_ORDER));
+                    params.put("ISPRINT_BARKOT",CommonMethods.getPrefrence(mContext,AllKeys.ISPRINT_BAR_ORDER));
+                    params.put("ISPRINT_RESTOBARKOT", CommonMethods.getPrefrence(mContext,AllKeys.ISPRINT_RESTOBAR_ORDER));
+                    params.put("ISPRINT_RESTAURANTCOUNTERKOT",CommonMethods.getPrefrence(mContext,AllKeys.ISALLOW_REPRINT_ORDER));
                     Log.e(TAG, "getParams: " + params);
                     return params;
                 }
@@ -319,6 +322,8 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
         rvMenu.setAdapter(takeOrderAdapter);
         // llSpecialRequest.setVisibility(View.GONE);
 
+        //hide keyboard..
+        hideSoftKeyboard(etQuantity);
 
         //clear all fields....
         clearFields();
@@ -575,9 +580,12 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
         }
         sum = total;
         if(takeOrderArrayList.size()==0){
+            tvTotalAmount.setVisibility(View.GONE);
             btnTakeOrder.setText("Take Order");
         }else {
+            tvTotalAmount.setVisibility(View.VISIBLE);
             btnTakeOrder.setText("Total: "+sum);
+            tvTotalAmount.setText("Total(Qty * Rate) "+sum);
         }
     }
 

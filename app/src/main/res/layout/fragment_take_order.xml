@@ -33,7 +33,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/et_tablenoinputlayout"
                     android:layout_width="@dimen/_60sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_margin="@dimen/_2sdp">
 
                     <AutoCompleteTextView
@@ -53,7 +53,7 @@
                 <!--style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_height="@dimen/_45sdp"
                     android:layout_margin="@dimen/_2sdp">
 
                     <AutoCompleteTextView
@@ -264,6 +264,24 @@
                 android:id="@+id/rv_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:gravity="right"
+                android:layout_marginEnd="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:fontFamily="@font/sourcesanspro_regular"
+                android:text="@string/new_orders"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_13sdp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                />
 
             <LinearLayout
                 android:id="@+id/ll_existingorder"

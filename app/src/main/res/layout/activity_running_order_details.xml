@@ -102,11 +102,11 @@
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_weight="1"
             android:background="@drawable/button_background"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@color/colorPrimary"
             android:text="@string/cancel_order1"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/black"
             android:fontFamily="@font/sourcesanspro_regular" />
     </LinearLayout>
 </RelativeLayout>

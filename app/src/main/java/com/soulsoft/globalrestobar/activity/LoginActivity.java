@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ import com.soulsoft.globalrestobar.adapter.GetAllCaptainAdapter;
 import com.soulsoft.globalrestobar.model.LoginResponse;
 import com.soulsoft.globalrestobar.model.getcaptain.GetAllCaptainBO;
 import com.soulsoft.globalrestobar.model.menucard.MenuCardResponse;
+import com.soulsoft.globalrestobar.model.settings.SettingsResponse;
 import com.soulsoft.globalrestobar.model.table.GetTableDataResponse;
 import com.soulsoft.globalrestobar.utility.AllKeys;
 import com.soulsoft.globalrestobar.utility.CommonMethods;
@@ -71,7 +74,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
             //getTableData...
             getTableData();
+
+            //getAllSettings of restaurant.....
+            getAllSettings();
         }
+
+        etPassword.setOnEditorActionListener((v, actionId, event) -> {
+            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (actionId == EditorInfo.IME_ACTION_DONE)) {
+                if(isValidated()){
+                    //login captain, employee
+                    autheticationUser();
+                }
+            }
+            return false;
+        });
     }
 
     @Override
@@ -243,7 +259,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mQueue.add(stringRequest);
     }
 
-
     private void getTableData(){
         ProgressDialog progress = new ProgressDialog(mContext);
         progress.setMessage("Downloading....");
@@ -272,4 +287,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         mQueue.add(stringRequest);
     }
 
+    private void getAllSettings(){
+        ProgressDialog progress = new ProgressDialog(mContext);
+        progress.setMessage("Downloading....");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.show();
+        progress.setCancelable(false);
+        StringRequest stringRequest=new StringRequest(Request.Method.POST,CommonMethods.getPrefrence(mContext,AllKeys.BASE_URL).concat(ConfigUrl.SYS_BILLINGSETTING), response -> {
+            Log.e(TAG, "onResponse:  "+response );
+            if(response != null) {
+                progress.dismiss();
+                Gson gson=new Gson();
+                SettingsResponse settingsResponse=gson.fromJson(response,SettingsResponse.class);
+                if(settingsResponse.getTable().size()>0){
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINTORDER,settingsResponse.getTable().get(0).getISPRINTORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_REST_ORDER,settingsResponse.getTable().get(0).getISPRINT_REST_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_BAR_ORDER,settingsResponse.getTable().get(0).getISPRINT_BAR_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_RESTOBAR_ORDER,settingsResponse.getTable().get(0).getISPRINT_RESTOBAR_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISALLOW_REPRINT_ORDER,settingsResponse.getTable().get(0).getISALLOW_REPRINT_ORDER());
+                }
+            }
+        }, error -> {
+            progress.dismiss();
+            Log.e(TAG, "onErrorResponse: "+error);
+        });
+        RequestQueue mQueue= Volley.newRequestQueue(mContext);
+        mQueue.add(stringRequest);
+    }
 }
