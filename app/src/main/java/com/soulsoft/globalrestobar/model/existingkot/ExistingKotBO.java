@@ -3,6 +3,7 @@ package com.soulsoft.globalrestobar.model.existingkot;
 import com.google.gson.annotations.SerializedName;
 
 public class ExistingKotBO {
+
     @SerializedName("MENU NAME")
     private String MENUNAME;
     private String QTY;

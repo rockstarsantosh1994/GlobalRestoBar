@@ -305,6 +305,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                    CommonMethods.setPreference(mContext,AllKeys.ISPRINT_BAR_ORDER,settingsResponse.getTable().get(0).getISPRINT_BAR_ORDER());
                    CommonMethods.setPreference(mContext,AllKeys.ISPRINT_RESTOBAR_ORDER,settingsResponse.getTable().get(0).getISPRINT_RESTOBAR_ORDER());
                    CommonMethods.setPreference(mContext,AllKeys.ISALLOW_REPRINT_ORDER,settingsResponse.getTable().get(0).getISALLOW_REPRINT_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_CANCEL_ORDER,settingsResponse.getTable().get(0).getISPRINT_CANCEL_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_CANCEL_ORDER,settingsResponse.getTable().get(0).getISPRINT_CANCEL_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_CANCELRESTO_ORDER,settingsResponse.getTable().get(0).getISPRINT_CANCELRESTO_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_CANCELRESTO_ORDER,settingsResponse.getTable().get(0).getISPRINT_CANCELRESTO_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_CANCELBAR_ORDER,settingsResponse.getTable().get(0).getISPRINT_CANCELBAR_ORDER());
+                   CommonMethods.setPreference(mContext,AllKeys.ISPRINT_CANCELRESTOBAR_ORDER,settingsResponse.getTable().get(0).getISPRINT_CANCELRESTOBAR_ORDER());
+
                 }
             }
         }, error -> {

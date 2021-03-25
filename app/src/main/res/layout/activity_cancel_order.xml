@@ -96,7 +96,7 @@
             android:fontFamily="@font/sourcesanspro_regular"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_takeorder"
+            android:id="@+id/btn_cancel_order"
             android:layout_width="0dp"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginLeft="@dimen/_8sdp"

@@ -12,4 +12,6 @@ public class ConfigUrl {
      public static final String BOOKEDTABLES_LIST="BOOKEDTABLES_LIST";
      public static final String SAVE_KOT="SAVE_KOT";
      public static final String SYS_BILLINGSETTING="SYS_BILLINGSETTING";
+     public static final String CANCEL_KOT_DETAILS="CANCEL_KOT_DETAILS";
+     public static final String SAVE_CANCEL_KOT="SAVE_CANCEL_KOT";
 }
