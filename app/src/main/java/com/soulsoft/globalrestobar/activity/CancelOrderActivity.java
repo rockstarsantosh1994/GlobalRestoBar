@@ -32,6 +32,7 @@ import com.soulsoft.globalrestobar.model.cancelkot.CancelKotBO;
 import com.soulsoft.globalrestobar.model.cancelkot.CancelResponse;
 import com.soulsoft.globalrestobar.model.existingkot.ExistingDetailsResponse;
 import com.soulsoft.globalrestobar.model.existingkot.ExistingKotBO;
+import com.soulsoft.globalrestobar.model.runningtable.RunningOrderBO;
 import com.soulsoft.globalrestobar.utility.AllKeys;
 import com.soulsoft.globalrestobar.utility.CommonMethods;
 import com.soulsoft.globalrestobar.utility.ConfigUrl;
@@ -60,7 +61,7 @@ public class CancelOrderActivity extends BaseActivity implements View.OnClickLis
     private ArrayList<CancelKotBO> cancelKotBOArrayList=new ArrayList<>();
     public ArrayList<CancelKotBO> cancelKotList=new ArrayList<>();
     CancelOrderDetailsAdapter cancelOrderDetailsAdapter;
-    private String stTableNo;
+    private String stTableNo,stSectionId,stKtype;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,11 +70,14 @@ public class CancelOrderActivity extends BaseActivity implements View.OnClickLis
         //basic intialisation...
         initViews();
 
-        if(getIntent().getStringExtra("tableno")!=null){
+        if(getIntent().getParcelableExtra("table")!=null){
+            RunningOrderBO runningOrderBO=getIntent().getParcelableExtra("table");
             //get order details of corresponding table no...
-            stTableNo=getIntent().getStringExtra("tableno");
+            stTableNo=runningOrderBO.getTABLE();
+            stSectionId=runningOrderBO.getSID();
+            stKtype=runningOrderBO.getKTYPE();
             if(CommonMethods.isNetworkAvailable(mContext)){
-                getOrderDetailsOfTable(getIntent().getStringExtra("tableno"));
+                getOrderDetailsOfTable(stTableNo);
             }
         }
 
@@ -156,15 +160,14 @@ public class CancelOrderActivity extends BaseActivity implements View.OnClickLis
             progressDialog.dismiss();
             Log.e(TAG, "onErrorResponse: " + error);
         }) {
-            protected Map<String, String> getParams() throws AuthFailureError {
+            protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("TableNo",stTableNo);
                 params.put("EMPID",CommonMethods.getPrefrence(mContext,AllKeys.EMPCODE));
-                params.put("SID","1");//from tableBO we will get
-                params.put("UID",String.valueOf(1));
+                params.put("SID",stSectionId);
                 String data = new Gson().toJson(cancelKotList);
                 params.put("STRCANCELKOTDTLS",data);
-                params.put("KTYPE","1");//from tableBO we will get
+                params.put("KTYPE",stKtype);//from menu we will get
                 params.put("ISPRINTCANCELKOT",CommonMethods.getPrefrence(mContext,AllKeys.ISPRINT_CANCEL_ORDER));
                 params.put("ISPRINTFOOD",CommonMethods.getPrefrence(mContext,AllKeys.ISPRINT_CANCELRESTO_ORDER));
                 params.put("ISPRINTBAR",CommonMethods.getPrefrence(mContext,AllKeys.ISPRINT_CANCELBAR_ORDER));

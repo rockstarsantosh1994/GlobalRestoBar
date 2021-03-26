@@ -278,7 +278,7 @@ public class TakeOrderFragment extends BaseFragment implements View.OnClickListe
                     params.put("SID", stSectionId);
                     params.put("KTYPE", stOrderId);
                     params.put("KOTNARRATION", String.valueOf(0));
-                        params.put("USERID", String.valueOf(1));
+                    params.put("USERID", String.valueOf(1));
                     String data = new Gson().toJson(takeOrderArrayList);
                     params.put("STRING_KOTLIST", data);
                     params.put("IS_PRINTKOT", CommonMethods.getPrefrence(getContext(), AllKeys.ISPRINTORDER));

@@ -49,7 +49,7 @@ public class RunningTableAdapter extends RecyclerView.Adapter<RunningTableAdapte
     @Override
     public void onBindViewHolder(@NonNull RunningTableViewHolder holder, int position) {
         holder.tvTableNo.setText(runningOrderBOArrayList.get(position).getTABLE());
-        // holder.tvTableAmount.setText("₹."+runningOrderBOArrayList.get(position).getAMOUNT());
+        holder.tvTableAmount.setText("₹."+runningOrderBOArrayList.get(position).getAMOUNT());
         // holder.tvEmpId.setText("Emp ID:- "+runningOrderBOArrayList.get(position).getEMPID());
 
         //int bgColor = ContextCompat.getColor(context, backgroundColors[position % 2]);
@@ -64,7 +64,7 @@ public class RunningTableAdapter extends RecyclerView.Adapter<RunningTableAdapte
             } else if (type.equalsIgnoreCase("cancel")) {
                 Intent intent = new Intent(context, CancelOrderActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("tableno", runningOrderBOArrayList.get(position).getTABLE());
+                intent.putExtra("table", runningOrderBOArrayList.get(position));
                 context.startActivity(intent);
             }
         });
@@ -79,12 +79,10 @@ public class RunningTableAdapter extends RecyclerView.Adapter<RunningTableAdapte
 
         @BindView(R.id.tv_table_no)
         TextView tvTableNo;
-        /*@BindView(R.id.tv_table_amount)
-        TextView tvTableAmount;
-        @BindView(R.id.tv_table_emp_id)
-        TextView tvEmpId;*/
         @BindView(R.id.cardView)
         CardView cardView;
+        @BindView(R.id.tv_table_amount)
+        TextView tvTableAmount;
 
         public RunningTableViewHolder(@NonNull View itemView) {
             super(itemView);

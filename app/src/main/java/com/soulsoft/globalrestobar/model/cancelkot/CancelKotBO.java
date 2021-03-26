@@ -3,6 +3,7 @@ package com.soulsoft.globalrestobar.model.cancelkot;
 import java.util.Objects;
 
 public class CancelKotBO {
+
     private String IID;
     private String ITEM;
     private String ITEMTYPE;
