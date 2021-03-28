@@ -80,6 +80,58 @@ public class CancelOrderDetailsAdapter extends RecyclerView.Adapter<CancelOrderD
                     if(Double.parseDouble(s.toString())>Double.parseDouble(existingKotBOArrayList.get(position).getQTY())){
                         holder.etReturnQty.setText(existingKotBOArrayList.get(position).getQTY());
                     }
+                    cancelOrderActivity.cancelKotList.remove(position);
+                    cancelOrderActivity.cancelKotList.add(new CancelKotBO(existingKotBOArrayList.get(position).getIID(),
+                            existingKotBOArrayList.get(position).getITEM(),
+                            existingKotBOArrayList.get(position).getITEMTYPE(),
+                            existingKotBOArrayList.get(position).getQTY(),
+                            existingKotBOArrayList.get(position).getUNITID(),
+                            existingKotBOArrayList.get(position).getUNIT(),
+                            existingKotBOArrayList.get(position).getRATE(),
+                            holder.etReason.getText().toString(),
+                            holder.etReturnQty.getText().toString()));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        });
+
+        holder.etReason.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try{
+                    if(cancelOrderActivity.cancelKotList.size()==0){
+                        cancelOrderActivity.cancelKotList.add(new CancelKotBO(existingKotBOArrayList.get(position).getIID(),
+                                existingKotBOArrayList.get(position).getITEM(),
+                                existingKotBOArrayList.get(position).getITEMTYPE(),
+                                existingKotBOArrayList.get(position).getQTY(),
+                                existingKotBOArrayList.get(position).getUNITID(),
+                                existingKotBOArrayList.get(position).getUNIT(),
+                                existingKotBOArrayList.get(position).getRATE(),
+                                holder.etReason.getText().toString(),
+                                holder.etReturnQty.getText().toString()));
+                    }else{
+                        cancelOrderActivity.cancelKotList.remove(position);
+
+                        cancelOrderActivity.cancelKotList.add(new CancelKotBO(existingKotBOArrayList.get(position).getIID(),
+                                existingKotBOArrayList.get(position).getITEM(),
+                                existingKotBOArrayList.get(position).getITEMTYPE(),
+                                existingKotBOArrayList.get(position).getQTY(),
+                                existingKotBOArrayList.get(position).getUNITID(),
+                                existingKotBOArrayList.get(position).getUNIT(),
+                                existingKotBOArrayList.get(position).getRATE(),
+                                holder.etReason.getText().toString(),
+                                holder.etReturnQty.getText().toString()));
+                    }
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -90,15 +142,29 @@ public class CancelOrderDetailsAdapter extends RecyclerView.Adapter<CancelOrderD
         holder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             //set your object's last status
             if(isChecked){
-                cancelOrderActivity.cancelKotList.add(new CancelKotBO(existingKotBOArrayList.get(position).getIID(),
-                        existingKotBOArrayList.get(position).getITEM(),
-                        existingKotBOArrayList.get(position).getITEMTYPE(),
-                        existingKotBOArrayList.get(position).getQTY(),
-                        existingKotBOArrayList.get(position).getUNITID(),
-                        existingKotBOArrayList.get(position).getUNIT(),
-                        existingKotBOArrayList.get(position).getRATE(),
-                        holder.etReason.getText().toString(),
-                        holder.etReturnQty.getText().toString()));
+                if(cancelOrderActivity.cancelKotList.size()==0){
+                    cancelOrderActivity.cancelKotList.add(new CancelKotBO(existingKotBOArrayList.get(position).getIID(),
+                            existingKotBOArrayList.get(position).getITEM(),
+                            existingKotBOArrayList.get(position).getITEMTYPE(),
+                            existingKotBOArrayList.get(position).getQTY(),
+                            existingKotBOArrayList.get(position).getUNITID(),
+                            existingKotBOArrayList.get(position).getUNIT(),
+                            existingKotBOArrayList.get(position).getRATE(),
+                            holder.etReason.getText().toString(),
+                            holder.etReturnQty.getText().toString()));
+                }else{
+                    cancelOrderActivity.cancelKotList.remove(position);
+
+                    cancelOrderActivity.cancelKotList.add(new CancelKotBO(existingKotBOArrayList.get(position).getIID(),
+                            existingKotBOArrayList.get(position).getITEM(),
+                            existingKotBOArrayList.get(position).getITEMTYPE(),
+                            existingKotBOArrayList.get(position).getQTY(),
+                            existingKotBOArrayList.get(position).getUNITID(),
+                            existingKotBOArrayList.get(position).getUNIT(),
+                            existingKotBOArrayList.get(position).getRATE(),
+                            holder.etReason.getText().toString(),
+                            holder.etReturnQty.getText().toString()));
+                }
             }else{
                 cancelOrderActivity.cancelKotList.remove(position);
             }
