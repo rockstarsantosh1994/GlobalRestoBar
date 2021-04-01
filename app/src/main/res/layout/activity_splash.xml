@@ -9,7 +9,7 @@
     <ImageView
         android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:src="@drawable/globalrestobar"
+        android:src="@drawable/gv_soft_splash"
         android:scaleType="fitXY"
         android:contentDescription="@string/todo" />
 

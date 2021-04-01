@@ -223,6 +223,7 @@ public class CancelOrderActivity extends BaseActivity implements View.OnClickLis
             for (CancelKotBO item : cancelKotBOArrayList) {
                 if (item.getITEM().toLowerCase().startsWith(text)
                         || item.getRATE().toLowerCase().startsWith(text)
+                        || item.getIID().toLowerCase().startsWith(text)
                         || item.getQTY().toLowerCase().startsWith(text)) {
                     filteredList1.add(item);
                 }
